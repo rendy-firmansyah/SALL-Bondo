@@ -1,3 +1,4 @@
+import Footer from '@/components/footer/footer';
 import Navbar from '@/components/navbar/navbar';
 import { Head } from '@inertiajs/react';
 
@@ -21,6 +22,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 }
