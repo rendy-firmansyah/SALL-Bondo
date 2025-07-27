@@ -9,8 +9,17 @@ export default function Home() {
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
             </Head>
             <Navbar />
-            <div className="flex min-h-screen">
-                <h1>Hello World</h1>
+            <div className="mt-20 flex min-h-screen">
+                <div className="flex">
+                    <div>
+                        <h3>
+                            Welcome to <span>SALL-Bondo</span>
+                        </h3>
+                    </div>
+                    <div>
+                        <h1>Hello</h1>
+                    </div>
+                </div>
             </div>
         </>
     );

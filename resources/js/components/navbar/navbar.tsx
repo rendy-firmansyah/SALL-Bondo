@@ -6,7 +6,7 @@ export default function navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     return (
         <>
-            <nav>
+            <nav className="fixed top-0 right-0 left-0 z-50">
                 <div>
                     <div className="flex items-center justify-between bg-white px-10 py-4 md:px-20">
                         <div className="font-logo text-2xl font-bold text-[#113F67]">SALL-Bondo</div>
