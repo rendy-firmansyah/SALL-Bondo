@@ -32,9 +32,9 @@ export default function Navbar() {
                             </a>
                         </li>
                         <li>
-                            <a href="#learning-reflection" className="hover:text-secondaryy">
+                            <Link href={route('learning')} className="hover:text-secondaryy">
                                 Learning Reflection
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <a href="#feedback" className="hover:text-secondaryy">
