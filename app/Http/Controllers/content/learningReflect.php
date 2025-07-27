@@ -21,7 +21,7 @@ class learningReflect extends Controller
 {
     /**
  * @OA\Post(
- *     path="/api/reflections",
+ *     path="/api/learningReflect",
  *     tags={"Reflections"},
  *     summary="Submit reflection form",
  *     description="Store user reflection from SALL-Bondo platform",
