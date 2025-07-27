@@ -37,7 +37,7 @@ export default function Navbar() {
                             </a>
                         </li>
                         <li>
-                            <a href="#feedback" className="hover:text-secondaryy">
+                            <a href="/feedback" className="hover:text-secondaryy">
                                 Feedback
                             </a>
                         </li>
