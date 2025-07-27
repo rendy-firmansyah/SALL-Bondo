@@ -7,9 +7,19 @@ Route::get('/', function () {
     return Inertia::render('home');
 })->name('home');
 
+
+Route::get('/feedback', function () {
+    return Inertia::render('feedback');
+})->name('feedback');
+
+Route::get('/SurveyPage', function () {
+    return Inertia::render('surveyPage');
+})->name('surveyPage');
+
 Route::get('/resources', function () {
     return Inertia::render('resources'); 
 })->name('resources');
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
