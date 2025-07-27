@@ -1,0 +1,85 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "SALL-Bondo API Documentation",
+        "description": "Dokumentasi API untuk platform refleksi pembelajaran SALL-Bondo.",
+        "contact": {
+            "email": "ikafitriani@unej.ac.id"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/learningReflect": {
+            "post": {
+                "tags": [
+                    "Reflections"
+                ],
+                "summary": "Submit reflection form",
+                "description": "Store user reflection from SALL-Bondo platform",
+                "operationId": "6cefb6f36a316db6a0b2c4a2bb485faf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {},
+                            "example": {
+                                "name": "Budi Santoso",
+                                "phone": "081234567890",
+                                "modules": [
+                                    "Learning Modul Chapter 1",
+                                    "Learning Modul Chapter 3",
+                                    "Learning Modul Chapter 6"
+                                ],
+                                "learning_reflection": {
+                                    "new_knowledge": "Saya belajar banyak kosa kata baru.",
+                                    "how_helped": "Materi mudah dipahami dan kontekstual.",
+                                    "confidence": "Saya jadi lebih percaya diri berbicara dalam bahasa Inggris.",
+                                    "reading_improvement": "Kemampuan membaca meningkat.",
+                                    "listening_improvement": "Lebih mudah memahami percakapan.",
+                                    "overall_improvement": "Ada peningkatan signifikan."
+                                },
+                                "platform_rating": {
+                                    "easy_to_use": 5,
+                                    "clear_instructions": 4,
+                                    "no_technical_issue": 5,
+                                    "attractive_platform": 5,
+                                    "appropriate_level": 4,
+                                    "cultural_relevance": 5,
+                                    "real_life_context": 5,
+                                    "reading_skill": 4,
+                                    "listening_skill": 4,
+                                    "local_identity": 5,
+                                    "learning_enjoyment": 5,
+                                    "interactivity": 5,
+                                    "independent_learning": 4,
+                                    "learner_needs": 4,
+                                    "overall_satisfaction": 5,
+                                    "recommend_to_friends": 5,
+                                    "liked_aspect": "Fitur interaktif dan konten lokal.",
+                                    "disliked_aspect": "Beberapa modul terlalu panjang.",
+                                    "challenges": "Koneksi internet lambat.",
+                                    "suggestions": "Tambahkan fitur audio interaktif."
+                                },
+                                "english_score": 8
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Reflections",
+            "description": "Reflections"
+        }
+    ]
+}
