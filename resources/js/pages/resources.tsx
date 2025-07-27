@@ -4,7 +4,7 @@ import Footer from '@/components/footer/footer';
 import Navbar from '@/components/navbar/navbar';
 import { Head } from '@inertiajs/react';
 
-export default function Home() {
+export default function Resources() {
     const modules = [
         { title: 'Chapter 1', link: 'https://view.genially.com/686ce3d29295cb24924dcab3' },
         { title: 'Chapter 2', link: 'https://view.genially.com/68704ef3bbc10ba4c982a81b' },
@@ -18,10 +18,9 @@ export default function Home() {
         { title: 'Chapter 10', link: 'https://view.genially.com/687424b2c6076c8091b5568c' },
     ];
 
-
     return (
         <>
-            <Head title="Home">
+            <Head title="Resources">
                 <link rel="preconnect" href="https://fonts.bunny.net" />
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
             </Head>
