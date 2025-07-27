@@ -1,3 +1,4 @@
+import Footer from '@/components/footer/footer';
 import Navbar from '@/components/navbar/navbar';
 import { Head } from '@inertiajs/react';
 
@@ -12,6 +13,7 @@ export default function Home() {
             <div className="flex min-h-screen">
                 <h1>Hello World</h1>
             </div>
+            <Footer />
         </>
     );
 }
