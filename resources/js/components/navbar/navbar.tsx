@@ -27,7 +27,7 @@ export default function Navbar() {
                             </a>
                         </li>
                         <li>
-                            <a href="#resource" className="hover:text-secondaryy">
+                            <a href={route('resources')} className="hover:text-secondaryy">
                                 Resource
                             </a>
                         </li>
@@ -71,7 +71,7 @@ export default function Navbar() {
                     <a href="#home" className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
                         Home
                     </a>
-                    <a href="#resource" className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
+                    <a href={route('resources')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
                         Resource
                     </a>
                     <a href="#learning-reflection" className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
