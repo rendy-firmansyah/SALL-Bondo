@@ -95,11 +95,11 @@
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.87 0 0);
     /* Color Setup */
-    --color-custom-primary: #113f67;
-    --color-custom-secondary: #34699a;
-    --color-custom-tertiary: #58a0c8;
-    --color-custom-quaternary: #fdf5aa;
-    --color-custom-quinary: #ffffff;
+    --color-custom-primaryy: #113f67;
+    --color-custom-secondaryy: #34699a;
+    --color-custom-tertiaryy: #58a0c8;
+    --color-custom-quaternaryy: #fdf5aa;
+    --color-custom-quinaryy: #ffffff;
 }
 
 .dark {
@@ -152,51 +152,51 @@
     .font-logo {
         font-family: var(--font-logo);
     }
-    .text-primary {
-        color: var(--color-custom-primary);
+    .text-primaryy {
+        color: var(--color-custom-primaryy);
     }
-    .text-secondary {
-        color: var(--color-custom-secondary);
+    .text-secondaryy {
+        color: var(--color-custom-secondaryy);
     }
-    .text-tertiary {
-        color: var(--color-custom-tertiary);
+    .text-tertiaryy {
+        color: var(--color-custom-tertiaryy);
     }
-    .text-quaternary {
-        color: var(--color-custom-quaternary);
+    .text-quaternaryy {
+        color: var(--color-custom-quaternaryy);
     }
-    .text-quinary {
-        color: var(--color-custom-quinary);
-    }
-
-    .bg-primary {
-        background-color: var(--color-custom-primary);
-    }
-    .bg-secondary {
-        background-color: var(--color-custom-secondary);
-    }
-    .bg-tertiary {
-        background-color: var(--color-custom-tertiary);
-    }
-    .bg-quaternary {
-        background-color: var(--color-custom-quaternary);
-    }
-    .bg-quinary {
-        background-color: var(--color-custom-quinary);
+    .text-quinaryy {
+        color: var(--color-custom-quinaryy);
     }
 
-    .border-primary {
-        border-color: var(--color-custom-primary);
+    .bg-primaryy {
+        background-color: var(--color-custom-primaryy);
     }
-    .border-secondary {
-        border-color: var(--color-custom-secondary);
+    .bg-secondaryy {
+        background-color: var(--color-custom-secondaryy);
     }
-    .border-tertiary {
-        border-color: var(--color-custom-tertiary);
+    .bg-tertiaryy {
+        background-color: var(--color-custom-tertiaryy);
     }
-    .border-quaternary {
-        border-color: var(--color-custom-quaternary);
+    .bg-quaternaryy {
+        background-color: var(--color-custom-quaternaryy);
     }
-    .border-quinary {
-        border-color: var(--color-custom-quinary);
+    .bg-quinaryy {
+        background-color: var(--color-custom-quinaryy);
+    }
+
+    .border-primaryy {
+        border-color: var(--color-custom-primaryy);
+    }
+    .border-secondaryy {
+        border-color: var(--color-custom-secondaryy);
+    }
+    .border-tertiaryy {
+        border-color: var(--color-custom-tertiaryy);
+    }
+    .border-quaternaryy {
+        border-color: var(--color-custom-quaternaryy);
+    }
+    .border-quinaryy {
+        border-color: var(--color-custom-quinaryy);
     }
 }
