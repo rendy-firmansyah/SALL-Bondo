@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\content\learningReflect;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\content\learningReflect;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
-Route::post('/learningReflect', [learningReflect::class, 'store'])->name('learningReflect.store');
+Route::post('/learningReflect', [learningReflect::class, 'store']);
+Route::get('/test', function () {
+    return response()->json([
+        'success' => true,
+        'message' => 'API is working properly!',
+    ]);
+});
