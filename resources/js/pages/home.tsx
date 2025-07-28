@@ -97,7 +97,7 @@ export default function Home() {
                                         </h3>
                                     </div>
                                     <h2 className="my-5 font-sans text-2xl font-bold md:text-4xl">
-                                        Your Gateway in English Learning through the Rich Culture of Situbondo
+                                        Your Gateway in English Learning through the Rich Culture of Situbondo
                                     </h2>
                                     <p className="font-sans text-base md:text-lg">
                                         SALL-BONDO is a self-access English learning platform developed through the 2025 DPPM Kemendikbudristek grant
@@ -247,7 +247,7 @@ export default function Home() {
                             </div>
                             <div className="flex h-[90px] w-[1000px] items-center justify-end gap-4 rounded-2xl border-2 border-gray-300 bg-white px-8">
                                 <h2 className="w-[800px] text-end font-sans text-xl">
-                                    Explore all modules, keep learning, and enjoy your independent language learning journey.
+                                    Explore all modules, keep learning, and enjoy your independent language learning journey.
                                 </h2>
                                 <div>
                                     <img src={JourneyImage} alt="Journey" className="h-[60px] w-[60px]" />
@@ -372,7 +372,7 @@ export default function Home() {
                                 </div>
                                 <div className="flex justify-center text-center">
                                     <h2 className="font-sans text-lg">
-                                        Explore all modules, keep learning, and enjoy your independent language learning journey.
+                                        Explore all modules, keep learning, and enjoy your independent language learning journey.
                                     </h2>
                                 </div>
                             </div>
