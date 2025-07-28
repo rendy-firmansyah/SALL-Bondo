@@ -27,40 +27,48 @@ export default function Resources() {
 
             <Navbar />
 
-            {/* Hero Section */}
-            <section className="container mx-auto mt-10 flex flex-col-reverse items-center gap-6 px-4 md:mt-20 md:flex-row md:items-center md:gap-12">
-                {/* Text Section */}
-                <div className="flex-1 text-center md:w-[50%] md:text-left">
-                    <h1 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl">
+            <section className="container mx-auto mt-10 flex flex-col items-center gap-10 px-4 md:mt-30 md:flex-row md:items-center md:gap-8">
+                {/* Gambar */}
+                <div className="flex-1 md:w-[45%] md:flex-none">
+                    <img src={srcImg} alt="Learning Illustration" className="mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md" />
+                </div>
+
+                {/* Teks */}
+                <div className="flex-1 text-center md:w-[50%] md:flex-none md:text-left">
+                    <h1 className="mb-4 text-2xl font-bold sm:text-3xl md:text-5xl">
                         Improve your English skills, <br /> starting here!
                     </h1>
-                    <p className="text-justify text-lg leading-relaxed text-gray-600 md:text-xl">
+                    <p className="text-justify text-base leading-relaxed text-gray-600 sm:text-lg md:text-2xl">
                         Access all learning materials in a flexible, interactive, and enjoyable way — designed to help you grow your English skills
                         with confidence.
                     </p>
                 </div>
-
-                {/* Image Section */}
-                <div className="flex-1 md:w-[45%]">
-                    <img src={srcImg} alt="Learning Illustration" className="mx-auto w-full max-w-sm sm:max-w-md md:max-w-lg" />
-                </div>
             </section>
 
-            {/* Modules Section */}
+            {/* List of Modules */}
             <section className="container mx-auto mt-16 px-4">
-                <h2 className="mb-10 text-center text-3xl font-bold sm:text-4xl md:ps-14 md:text-left">List of Learning Modules (SALL Resources)</h2>
+                <h2 className="mb-10 ps-0 text-center text-2xl font-bold sm:text-3xl md:ps-14 md:text-left md:text-4xl">
+                    List of Learning Modules (SALL Resources)
+                </h2>
 
-                <div className="grid grid-cols-1 place-items-center gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div className="grid grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {modules.map((module, idx) => (
                         <div key={idx} className="flex w-72 flex-col items-center rounded-3xl border-2 border-gray-300 bg-white p-4 shadow-xl md:p-5">
+                            {/* Logo Modul */}
                             <img src={LogoModul} alt={`Learning Modul ${module.title}`} className="mb-5 h-36 w-44 object-contain" />
-                            <h3 className="text-center text-2xl font-semibold">Learning Modul</h3>
-                            <p className="text-center text-xl text-gray-500">{module.title}</p>
+
+                            {/* Judul */}
+                            <h3 className="text-center text-xl font-semibold sm:text-2xl">Learning Modul</h3>
+
+                            {/* Subtitle */}
+                            <p className="text-center text-base text-gray-500 sm:text-xl">{module.title}</p>
+
+                            {/* Tombol */}
                             <a
                                 href={module.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="mt-5 rounded bg-[#34699A] px-5 py-3 text-xl text-white transition hover:bg-[#2A5278]"
+                                className="mt-5 rounded bg-[#34699A] px-5 py-2 text-base text-white transition hover:bg-[#2A5278] sm:text-xl"
                             >
                                 Click Here
                             </a>
@@ -70,8 +78,8 @@ export default function Resources() {
             </section>
 
             {/* Quote Section */}
-            <section className="container mx-auto mt-20 mb-16 px-4 text-center md:px-16">
-                <p className="text-2xl font-semibold italic sm:text-3xl md:text-5xl">
+            <section className="container mx-auto mt-20 mb-16 px-4 text-center sm:px-10 md:px-60">
+                <p className="text-xl font-semibold italic sm:text-3xl md:text-5xl">
                     “Keep learning, keep growing — your English journey starts here and goes beyond!”
                 </p>
             </section>
