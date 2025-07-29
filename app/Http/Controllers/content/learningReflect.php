@@ -6,17 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Reflection;
 
-/**
- * @OA\Info(
- *     version="1.0.0",
- *     title="SALL-Bondo API Documentation",
- *     description="Dokumentasi API untuk platform refleksi pembelajaran SALL-Bondo.",
- *     @OA\Contact(
- *         email="ikafitriani@unej.ac.id"
- *     )
- * )
- */
-
 class learningReflect extends Controller
 {
     /**
