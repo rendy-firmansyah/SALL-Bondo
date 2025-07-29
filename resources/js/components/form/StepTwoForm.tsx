@@ -10,18 +10,18 @@ interface StepTwoProps {
 
 const StepTwoForm: React.FC<StepTwoProps> = ({ formData, onChange, onBack, onNext }) => {
     const fields: { label: string; name: keyof FormData }[] = [
-        { label: 'Apa hal baru yang Anda pelajari dari modul SALL-BONDO ini?', name: 'pelajaranBaru' },
-        { label: 'Bagaimana materi dalam SALL-BONDO membantu Anda belajar bahasa Inggris?', name: 'bantuanMateri' },
+        { label: 'Apa hal baru yang Anda pelajari dari modul SALL-BONDO ini?', name: 'new_knowledge' },
+        { label: 'Bagaimana materi dalam SALL-BONDO membantu Anda belajar bahasa Inggris?', name: 'how_helped' },
         {
             label: 'Apakah Anda merasa lebih percaya diri belajar bahasa Inggris secara mandiri setelah menggunakan SALL-Bondo? Jelaskan alasannya.',
-            name: 'percayaDiri',
+            name: 'confidence',
         },
-        { label: 'Apakah Anda merasa kemampuan membaca teks bahasa Inggris Anda meningkat? Jelaskan.', name: 'kemampuanMembaca' },
+        { label: 'Apakah Anda merasa kemampuan membaca teks bahasa Inggris Anda meningkat? Jelaskan.', name: 'reading_improvement' },
         {
             label: 'Apakah Anda merasa kemampuan menyimak atau mendengarkan dalam bahasa Inggris Anda meningkat? Jelaskan.',
-            name: 'kemampuanMenyimak',
+            name: 'listening_improvement',
         },
-        { label: 'Apakah ada peningkatan dalam bahasa Inggris setelah belajar dengan platform SALL-Bondo? Jelaskan.', name: 'peningkatanBahasa' },
+        { label: 'Apakah ada peningkatan dalam bahasa Inggris setelah belajar dengan platform SALL-Bondo? Jelaskan.', name: 'overall_improvement' },
         // {
         //     label: 'Berdasarkan refleksi Anda, berapa nilai bahasa Inggris Anda setelah serangkaian proses belajar bahasa Inggris dalam dengan dosen dan menggunakan SALL-Bondo?',
         //     name: 'nilaiBahasa',
@@ -66,9 +66,9 @@ const StepTwoForm: React.FC<StepTwoProps> = ({ formData, onChange, onBack, onNex
                                 <span className="mb-1">{value}</span>
                                 <input
                                     type="radio"
-                                    name="nilaiBahasa"
+                                    name="english_score"
                                     value={value}
-                                    checked={formData.nilaiBahasa === value}
+                                    checked={formData.english_score === value}
                                     onChange={onChange}
                                     className="h-8 w-8 accent-blue-600"
                                 />
