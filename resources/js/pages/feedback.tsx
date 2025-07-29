@@ -79,14 +79,14 @@ export default function Feedback() {
         <>
             <Navbar />
             <section>
-                <div className="flex min-h-screen items-center justify-center bg-white px-4">
-                    <form onSubmit={handleSubmit} className="w-3/4 rounded-lg bg-white p-8">
-                        <h2 className="mb-15 text-center text-3xl font-bold">
+                <div className="flex min-h-screen items-center justify-center bg-white px-0 md:px-4">
+                    <form onSubmit={handleSubmit} className="w-3/4 rounded-lg bg-white px-2 py-8 md:p-8">
+                        <h2 className="mt-20 mb-10 text-center text-2xl font-bold md:mt-0 md:mb-15 md:text-3xl">
                             Please complete this short survey <br />
                             before you leave.
                         </h2>
 
-                        <div className="grid grid-cols-1 gap-30 text-xl md:grid-cols-2">
+                        <div className="grid grid-cols-1 gap-16 text-xl md:grid-cols-2 md:gap-30">
                             {/* Learning Materials */}
                             <div>
                                 <p className="mb-4 font-semibold">How do you find the provided learning materials?</p>
