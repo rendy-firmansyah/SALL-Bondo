@@ -9,6 +9,74 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/feedback": {
+            "get": {
+                "tags": [
+                    "Survey"
+                ],
+                "summary": "Lihat hasil ringkasan survei",
+                "operationId": "62767a0001ce7befc185be7166bc7e5f",
+                "responses": {
+                    "200": {
+                        "description": "Hasil agregat jawaban",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "learning_materials_summary": {
+                                            "type": "object"
+                                        },
+                                        "website_usability_summary": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Survey"
+                ],
+                "summary": "Simpan jawaban survei",
+                "operationId": "0c5a2f7ae9f457324731107d8878ff78",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "learning_materials",
+                                    "website_usability"
+                                ],
+                                "properties": {
+                                    "learning_materials": {
+                                        "type": "string",
+                                        "example": "Very effective"
+                                    },
+                                    "website_usability": {
+                                        "type": "string",
+                                        "example": "Good"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Response saved successfully"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
         "/api/learningReflect": {
             "post": {
                 "tags": [
@@ -77,6 +145,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Survey",
+            "description": "Survey"
+        },
         {
             "name": "Reflections",
             "description": "Reflections"
