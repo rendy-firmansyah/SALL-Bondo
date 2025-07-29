@@ -46,14 +46,14 @@ export default function Home() {
                                 Welcome to <span className="text-primaryy font-logo">SALL-Bondo</span>
                             </h3>
                             <h1 className="my-4 text-center font-sans text-3xl font-bold md:text-start md:text-5xl">
-                                Explore English with Situbondo’s Culture
+                                Explore English with Situbondo's Culture
                             </h1>
                             <h3 className="mb-12 text-center font-sans text-lg md:text-start md:text-2xl">
-                                SALL-BONDO is a flexible self-learning platform to study English through Situbondo’s culture
+                                SALL-BONDO is a flexible self-learning platform to study English through Situbondo's culture
                             </h3>
                             <div className="text-center md:text-start">
                                 <Link href="" className="bg-primaryy rounded-lg px-5 py-2.5 font-sans text-white">
-                                    Let’s start our exploration
+                                    Let's start our exploration
                                 </Link>
                             </div>
                         </div>
@@ -105,7 +105,7 @@ export default function Home() {
                                         Berbasis Kearifan Lokal Tapal Kuda.”, in collaboration with Forum Pemuda Pelopor Situbondo. It aims to enhance
                                         English proficiency and cultural literacy through flexible online and offline learning, including the creation
                                         of contemporary batik motifs inspired by local wisdom. Managed by Ika Fitriani and Chandra Ayu Proborini
-                                        (Universitas Jember), and Diana Setia Dewi (ITB Tuban), the program empowers Situbondo’s youth by integrating
+                                        (Universitas Jember), and Diana Setia Dewi (ITB Tuban), the program empowers Situbondo's youth by integrating
                                         language, culture, and creativity.
                                     </p>
                                 </div>
@@ -457,7 +457,7 @@ export default function Home() {
                     <div className="flex w-full justify-center">
                         <div>
                             <div className="flex justify-center">
-                                <h1 className="flex items-center gap-2 font-sans text-4xl font-semibold text-[#58A0C8]">
+                                <h1 className="flex items-center gap-2 font-sans text-2xl font-semibold text-[#58A0C8] md:text-4xl">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                             <path

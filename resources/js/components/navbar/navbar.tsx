@@ -22,7 +22,7 @@ export default function Navbar() {
                     {/* Desktop Navigation */}
                     <ul className="hidden items-center gap-10 font-medium text-gray-700 md:flex">
                         <li>
-                            <a href="#home" className="hover:text-secondaryy">
+                            <a href={route('home')} className="hover:text-secondaryy">
                                 Home
                             </a>
                         </li>
@@ -37,7 +37,7 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li>
-                            <a href="/feedback" className="hover:text-secondaryy">
+                            <a href={route('feedback')} className="hover:text-secondaryy">
                                 Feedback
                             </a>
                         </li>
@@ -54,7 +54,7 @@ export default function Navbar() {
             </nav>
 
             {/* Overlay when mobile menu is open */}
-            {menuOpen && <div className="bg-opacity-40 fixed inset-0 z-40 bg-black md:hidden" onClick={() => setMenuOpen(false)} />}
+            {menuOpen && <div className="fixed inset-0 z-40 bg-gray-700 opacity-40 md:hidden" onClick={() => setMenuOpen(false)} />}
 
             {/* Sidebar Menu (mobile only) */}
             <div
@@ -68,16 +68,16 @@ export default function Navbar() {
                     </button>
                 </div>
                 <div className="flex flex-col space-y-6 p-6 font-medium text-gray-700">
-                    <a href="#home" className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
+                    <a href={route('home')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
                         Home
                     </a>
                     <a href={route('resources')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
                         Resource
                     </a>
-                    <a href="#learning-reflection" className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
+                    <a href={route('learning')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
                         Learning Reflection
                     </a>
-                    <a href="#feedback" className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
+                    <a href={route('feedback')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
                         Feedback
                     </a>
                     <Link
