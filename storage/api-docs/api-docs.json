@@ -89,46 +89,142 @@
                     "required": true,
                     "content": {
                         "application/json": {
-                            "schema": {},
-                            "example": {
-                                "name": "Budi Santoso",
-                                "phone": "081234567890",
-                                "modules": [
-                                    "Learning Modul Chapter 1",
-                                    "Learning Modul Chapter 3",
-                                    "Learning Modul Chapter 6"
-                                ],
-                                "learning_reflection": {
-                                    "new_knowledge": "Saya belajar banyak kosa kata baru.",
-                                    "how_helped": "Materi mudah dipahami dan kontekstual.",
-                                    "confidence": "Saya jadi lebih percaya diri berbicara dalam bahasa Inggris.",
-                                    "reading_improvement": "Kemampuan membaca meningkat.",
-                                    "listening_improvement": "Lebih mudah memahami percakapan.",
-                                    "overall_improvement": "Ada peningkatan signifikan."
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Budi Santoso"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "081234567890"
+                                    },
+                                    "modules": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "learning_reflection": {
+                                        "properties": {
+                                            "new_knowledge": {
+                                                "type": "string",
+                                                "example": "Saya belajar banyak kosa kata baru."
+                                            },
+                                            "how_helped": {
+                                                "type": "string",
+                                                "example": "Materi mudah dipahami dan kontekstual."
+                                            },
+                                            "confidence": {
+                                                "type": "string",
+                                                "example": "Saya jadi lebih percaya diri berbicara dalam bahasa Inggris."
+                                            },
+                                            "reading_improvement": {
+                                                "type": "string",
+                                                "example": "Kemampuan membaca meningkat."
+                                            },
+                                            "listening_improvement": {
+                                                "type": "string",
+                                                "example": "Lebih mudah memahami percakapan."
+                                            },
+                                            "overall_improvement": {
+                                                "type": "string",
+                                                "example": "Ada peningkatan signifikan."
+                                            },
+                                            "english_score": {
+                                                "type": "integer",
+                                                "example": 8
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "platform_rating": {
+                                        "properties": {
+                                            "easy_to_use": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "clear_instructions": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "no_technical_issue": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "attractive_platform": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "appropriate_level": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "cultural_relevance": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "real_life_context": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "reading_skill": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "listening_skill": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "local_identity": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "learning_enjoyment": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "interactivity": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "independent_learning": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "learner_needs": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "overall_satisfaction": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "recommend_to_friends": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "liked_aspect": {
+                                                "type": "string",
+                                                "example": "Fitur interaktif dan konten lokal."
+                                            },
+                                            "disliked_aspect": {
+                                                "type": "string",
+                                                "example": "Beberapa modul terlalu panjang."
+                                            },
+                                            "challenges": {
+                                                "type": "string",
+                                                "example": "Koneksi internet lambat."
+                                            },
+                                            "suggestions": {
+                                                "type": "string",
+                                                "example": "Tambahkan fitur audio interaktif."
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
                                 },
-                                "platform_rating": {
-                                    "easy_to_use": 5,
-                                    "clear_instructions": 4,
-                                    "no_technical_issue": 5,
-                                    "attractive_platform": 5,
-                                    "appropriate_level": 4,
-                                    "cultural_relevance": 5,
-                                    "real_life_context": 5,
-                                    "reading_skill": 4,
-                                    "listening_skill": 4,
-                                    "local_identity": 5,
-                                    "learning_enjoyment": 5,
-                                    "interactivity": 5,
-                                    "independent_learning": 4,
-                                    "learner_needs": 4,
-                                    "overall_satisfaction": 5,
-                                    "recommend_to_friends": 5,
-                                    "liked_aspect": "Fitur interaktif dan konten lokal.",
-                                    "disliked_aspect": "Beberapa modul terlalu panjang.",
-                                    "challenges": "Koneksi internet lambat.",
-                                    "suggestions": "Tambahkan fitur audio interaktif."
-                                },
-                                "english_score": 8
+                                "type": "object"
                             }
                         }
                     }
