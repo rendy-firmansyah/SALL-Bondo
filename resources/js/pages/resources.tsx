@@ -25,59 +25,60 @@ export default function Resources() {
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
             </Head>
             <Navbar />
+            <div className="bg-white">
+                <section className="container mx-auto flex flex-col items-center px-4 pt-30 md:flex-row md:items-center md:gap-8">
+                    {/* Gambar */}
+                    <div className="flex-1 md:w-[45%] md:flex-none">
+                        <img src={srcImg} alt="Learning Illustration" className="mx-auto w-full max-w-md" />
+                    </div>
 
-            <section className="container mx-auto mt-30 flex flex-col items-center px-4 md:flex-row md:items-center md:gap-8">
-                {/* Gambar */}
-                <div className="flex-1 md:w-[45%] md:flex-none">
-                    <img src={srcImg} alt="Learning Illustration" className="mx-auto w-full max-w-md" />
-                </div>
+                    {/* Teks */}
+                    <div className="flex-1 text-center md:w-[50%] md:flex-none md:text-left">
+                        <h1 className="mb-4 text-3xl font-bold md:text-5xl">
+                            Improve your English skills, <br /> starting here!
+                        </h1>
+                        <p className="text-justify text-2xl leading-relaxed text-gray-600">
+                            Access all learning materials in a flexible, interactive, and enjoyable way — designed to help you grow your English
+                            skills with confidence.
+                        </p>
+                    </div>
+                </section>
 
-                {/* Teks */}
-                <div className="flex-1 text-center md:w-[50%] md:flex-none md:text-left">
-                    <h1 className="mb-4 text-3xl font-bold md:text-5xl">
-                        Improve your English skills, <br /> starting here!
-                    </h1>
-                    <p className="text-justify text-2xl leading-relaxed text-gray-600">
-                        Access all learning materials in a flexible, interactive, and enjoyable way — designed to help you grow your English skills
-                        with confidence.
-                    </p>
-                </div>
-            </section>
+                {/* List of Modules */}
+                <section className="container mx-auto mt-16 px-4">
+                    <h2 className="mb-10 ps-14 text-4xl font-bold">List of Learning Modules (SALL Resources)</h2>
 
-            {/* List of Modules */}
-            <section className="container mx-auto mt-16 px-4">
-                <h2 className="mb-10 ps-14 text-4xl font-bold">List of Learning Modules (SALL Resources)</h2>
+                    <div className="grid grid-cols-1 justify-items-center gap-x-0 gap-y-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        {modules.map((module, idx) => (
+                            <div key={idx} className="flex w-72 flex-col items-center rounded-3xl border-2 border-gray-300 bg-white p-5 shadow-xl">
+                                {/* Logo Modul */}
+                                <img src={LogoModul} alt={`Learning Modul ${module.title}`} className="mb-5 h-36 w-44 object-contain" />
 
-                <div className="grid grid-cols-1 justify-items-center gap-x-0 gap-y-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {modules.map((module, idx) => (
-                        <div key={idx} className="flex w-72 flex-col items-center rounded-3xl border-2 border-gray-300 bg-white p-5 shadow-xl">
-                            {/* Logo Modul */}
-                            <img src={LogoModul} alt={`Learning Modul ${module.title}`} className="mb-5 h-36 w-44 object-contain" />
+                                {/* Judul */}
+                                <h3 className="text-center text-2xl font-semibold">Learning Modul</h3>
 
-                            {/* Judul */}
-                            <h3 className="text-center text-2xl font-semibold">Learning Modul</h3>
+                                {/* Subtitle (Chapter 1, Chapter 2, dst) */}
+                                <p className="text-center text-xl text-gray-500">{module.title}</p>
 
-                            {/* Subtitle (Chapter 1, Chapter 2, dst) */}
-                            <p className="text-center text-xl text-gray-500">{module.title}</p>
+                                {/* Tombol dengan link unik */}
+                                <a
+                                    href={module.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="mt-5 rounded bg-[#34699A] px-5 py-3 text-xl text-white transition hover:bg-[#2A5278]"
+                                >
+                                    Click Here
+                                </a>
+                            </div>
+                        ))}
+                    </div>
+                </section>
 
-                            {/* Tombol dengan link unik */}
-                            <a
-                                href={module.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="mt-5 rounded bg-[#34699A] px-5 py-3 text-xl text-white transition hover:bg-[#2A5278]"
-                            >
-                                Click Here
-                            </a>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* Quote Section */}
-            <section className="container mx-auto mt-50 mb-30 px-60 text-center">
-                <p className="text-5xl font-semibold italic">“Keep learning, keep growing — your English journey starts here and goes beyond!”</p>
-            </section>
+                {/* Quote Section */}
+                <section className="container mx-auto mt-50 px-60 pb-30 text-center">
+                    <p className="text-5xl font-semibold italic">“Keep learning, keep growing — your English journey starts here and goes beyond!”</p>
+                </section>
+            </div>
 
             {/* Footer */}
             <Footer />

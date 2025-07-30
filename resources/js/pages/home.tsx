@@ -27,7 +27,7 @@ import { Link } from '@inertiajs/react';
 
 export default function Home() {
     return (
-        <div className="">
+        <div className="bg-white">
             <Navbar />
             {/* Hero Section */}
             <section id="Hero" className="mt-8 flex min-h-screen w-full md:mt-15">
