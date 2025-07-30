@@ -18,7 +18,6 @@ return new class extends Migration
             $table->json('modules_completed');
             $table->json('learning_reflection');
             $table->json('platform_rating');
-            $table->integer('english_score');
             $table->timestamps();
         });
 

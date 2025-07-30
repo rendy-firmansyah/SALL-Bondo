@@ -8,7 +8,7 @@ use App\Models\Reflection;
 
 class learningReflect extends Controller
 {
-    /**
+/**
  * @OA\Post(
  *     path="/api/learningReflect",
  *     tags={"Reflections"},
@@ -17,46 +17,46 @@ class learningReflect extends Controller
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             example={
- *                 "name": "Budi Santoso",
- *                 "phone": "081234567890",
- *                 "modules": {
- *                     "Learning Modul Chapter 1",
- *                     "Learning Modul Chapter 3",
- *                     "Learning Modul Chapter 6"
- *                 },
- *                 "learning_reflection": {
- *                     "new_knowledge": "Saya belajar banyak kosa kata baru.",
- *                     "how_helped": "Materi mudah dipahami dan kontekstual.",
- *                     "confidence": "Saya jadi lebih percaya diri berbicara dalam bahasa Inggris.",
- *                     "reading_improvement": "Kemampuan membaca meningkat.",
- *                     "listening_improvement": "Lebih mudah memahami percakapan.",
- *                     "overall_improvement": "Ada peningkatan signifikan."
- *                 },
- *                 "platform_rating": {
- *                     "easy_to_use": 5,
- *                     "clear_instructions": 4,
- *                     "no_technical_issue": 5,
- *                     "attractive_platform": 5,
- *                     "appropriate_level": 4,
- *                     "cultural_relevance": 5,
- *                     "real_life_context": 5,
- *                     "reading_skill": 4,
- *                     "listening_skill": 4,
- *                     "local_identity": 5,
- *                     "learning_enjoyment": 5,
- *                     "interactivity": 5,
- *                     "independent_learning": 4,
- *                     "learner_needs": 4,
- *                     "overall_satisfaction": 5,
- *                     "recommend_to_friends": 5,
- *                     "liked_aspect": "Fitur interaktif dan konten lokal.",
- *                     "disliked_aspect": "Beberapa modul terlalu panjang.",
- *                     "challenges": "Koneksi internet lambat.",
- *                     "suggestions": "Tambahkan fitur audio interaktif."
- *                 },
- *                 "english_score": 8
- *             }
+ *             @OA\Property(property="name", type="string", example="Budi Santoso"),
+ *             @OA\Property(property="phone", type="string", example="081234567890"),
+ *             @OA\Property(property="modules", type="array", @OA\Items(type="string")),
+ *             
+ *             @OA\Property(
+ *                 property="learning_reflection",
+ *                 type="object",
+ *                 @OA\Property(property="new_knowledge", type="string", example="Saya belajar banyak kosa kata baru."),
+ *                 @OA\Property(property="how_helped", type="string", example="Materi mudah dipahami dan kontekstual."),
+ *                 @OA\Property(property="confidence", type="string", example="Saya jadi lebih percaya diri berbicara dalam bahasa Inggris."),
+ *                 @OA\Property(property="reading_improvement", type="string", example="Kemampuan membaca meningkat."),
+ *                 @OA\Property(property="listening_improvement", type="string", example="Lebih mudah memahami percakapan."),
+ *                 @OA\Property(property="overall_improvement", type="string", example="Ada peningkatan signifikan."),
+ *                 @OA\Property(property="english_score", type="integer", example=8)
+ *             ),
+ *             
+ *             @OA\Property(
+ *                 property="platform_rating",
+ *                 type="object",
+ *                 @OA\Property(property="easy_to_use", type="integer", example=5),
+ *                 @OA\Property(property="clear_instructions", type="integer", example=4),
+ *                 @OA\Property(property="no_technical_issue", type="integer", example=5),
+ *                 @OA\Property(property="attractive_platform", type="integer", example=5),
+ *                 @OA\Property(property="appropriate_level", type="integer", example=4),
+ *                 @OA\Property(property="cultural_relevance", type="integer", example=5),
+ *                 @OA\Property(property="real_life_context", type="integer", example=5),
+ *                 @OA\Property(property="reading_skill", type="integer", example=4),
+ *                 @OA\Property(property="listening_skill", type="integer", example=4),
+ *                 @OA\Property(property="local_identity", type="integer", example=5),
+ *                 @OA\Property(property="learning_enjoyment", type="integer", example=5),
+ *                 @OA\Property(property="interactivity", type="integer", example=5),
+ *                 @OA\Property(property="independent_learning", type="integer", example=4),
+ *                 @OA\Property(property="learner_needs", type="integer", example=4),
+ *                 @OA\Property(property="overall_satisfaction", type="integer", example=5),
+ *                 @OA\Property(property="recommend_to_friends", type="integer", example=5),
+ *                 @OA\Property(property="liked_aspect", type="string", example="Fitur interaktif dan konten lokal."),
+ *                 @OA\Property(property="disliked_aspect", type="string", example="Beberapa modul terlalu panjang."),
+ *                 @OA\Property(property="challenges", type="string", example="Koneksi internet lambat."),
+ *                 @OA\Property(property="suggestions", type="string", example="Tambahkan fitur audio interaktif.")
+ *             )
  *         )
  *     ),
  *     @OA\Response(
@@ -71,6 +71,7 @@ class learningReflect extends Controller
  */
 
 
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -79,7 +80,6 @@ class learningReflect extends Controller
             'modules' => 'required|array|min:1',
             'learning_reflection' => 'required|array',
             'platform_rating' => 'required|array',
-            'english_score' => 'required|integer|min:1|max:10',
         ]);
 
         if ($validator->fails()) {
@@ -92,7 +92,6 @@ class learningReflect extends Controller
             'modules_completed' => json_encode($request->modules),
             'learning_reflection' => json_encode($request->learning_reflection),
             'platform_rating' => json_encode($request->platform_rating),
-            'english_score' => $request->english_score,
         ]);
 
         return response()->json([

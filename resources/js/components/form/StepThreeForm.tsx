@@ -1,107 +1,81 @@
+import { FormData } from '@/types/FormData';
 import React from 'react';
 
 interface StepThreeProps {
-    formData: {
-        kemudahanNavigasi: string;
-        petunjukModul: string;
-        kendalaAkses: string;
-        tampilanPlatform: string;
-        kesesuaianMateri: string;
-        topikRelevan: string;
-        kaitanMateri: string;
-        peningkatanMembaca: string;
-        peningkatanMendengar: string;
-        belajarBudaya: string;
-        impactPlatform: string;
-        kenikmatanBelajar: string;
-        pemberianAktifitas: string;
-        motivasiBelajar: string;
-        kebutuhanPlatform: string;
-        kepuasan: string;
-        penilaianPlatform: string;
-        rekomendasi: string;
-        kesukaanMateri: string;
-        ketidaksukaanMateri: string;
-        tantangan: string;
-        saranHarapan: string;
-    };
+    formData: FormData;
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     onBack: () => void;
-    // onSubmit: () => void;
+    onSubmit: () => void;
 }
 
-const StepThreeForm: React.FC<StepThreeProps> = ({ formData, onChange, onBack }) => {
+const StepThreeForm: React.FC<StepThreeProps> = ({ formData, onChange, onBack, onSubmit }) => {
     const questions = [
         {
-            key: 'kemudahanNavigasi',
+            key: 'easy_to_use',
             text: 'Platform ini mudah digunakan dan dinavigasi.',
         },
         {
-            key: 'petunjukModul',
+            key: 'clear_instructions',
             text: 'Petunjuk pada setiap modul jelas dan mudah dipahami.',
         },
         {
-            key: 'kendalaAkses',
+            key: 'no_technical_issue',
             text: 'Saya dapat mengakses platform tanpa kendala teknis.',
         },
         {
-            key: 'tampilanPlatform',
+            key: 'attractive_platform',
             text: 'Tampilan platform menarik dan nyaman dilihat.',
         },
         {
-            key: 'kesesuaianMateri',
+            key: 'appropriate_level',
             text: 'Materi sesuai dengan tingkat kemampuan bahasa Inggris saya.',
         },
         {
-            key: 'topikRelevan',
+            key: 'cultural_relevance',
             text: 'Topik yang disajikan relevan dengan budaya lokal Situbondo.',
         },
         {
-            key: 'kaitanMateri',
+            key: 'real_life_context',
             text: 'Saya dapat mengaitkan materi dengan situasi nyata di kehidupan sehari-hari.',
         },
         {
-            key: 'peningkatanMembaca',
+            key: 'reading_skill',
             text: 'Platform ini membantu saya meningkatkan kemampuan membaca.',
         },
         {
-            key: 'peningkatanMendengar',
+            key: 'listening_skill',
             text: 'Platform ini membantu saya meningkatkan kemampuan mendengar.',
         },
         {
-            key: 'belajarBudaya',
+            key: 'study_cultural',
             text: 'Saya mempelajari budaya Situbondo melalui modul yang disediakan.',
         },
         {
-            key: 'impactPlatform',
+            key: 'local_identity',
             text: 'Saya merasa lebih terhubung dengan identitas lokal setelah menggunakan platform ini.',
         },
         {
-            key: 'kenikmatanBelajar',
+            key: 'learning_enjoyment',
             text: 'Saya menikmati belajar bahasa Inggris dengan SALL-Bondo.',
         },
         {
-            key: 'pemberianAktifitas',
+            key: 'interactivity',
             text: 'Aktivitas yang diberikan menarik dan interaktif.',
         },
         {
-            key: 'motivasiBelajar',
+            key: 'independent_learning',
             text: 'Saya termotivasi untuk belajar secara mandiri melalui platform ini.',
         },
         {
-            key: 'kebutuhanPlatform',
+            key: 'learner_needs',
             text: 'Platform ini memperhatikan berbagai kebutuhan dan gaya belajar siswa.',
         },
         {
-            key: 'kepuasan',
+            key: 'overall_satisfaction',
             text: 'Secara keseluruhan, saya puas dengan platform SALL-Bondo.',
         },
         {
-            key: 'penilaianPlatform',
-            text: 'Berikan penilaianmu untuk terhadap platform SALL-Bondo.',
-        },
-        {
-            key: 'rekomendasi',
+            key: 'recommend_to_friends',
             text: 'Saya akan merekomendasikan platform ini kepada teman-teman saya.',
         },
     ];
@@ -143,13 +117,13 @@ const StepThreeForm: React.FC<StepThreeProps> = ({ formData, onChange, onBack })
 
             {/* Pertanyaan Teks */}
             <div className="mt-8">
-                <label htmlFor="kesukaanMateri" className="mb-2 block font-medium">
+                <label htmlFor="liked_aspect" className="mb-2 block font-medium">
                     Materi belajar SALL-Bondo apa yang paling Anda sukai? Jelaskan mengapa?
                 </label>
                 <textarea
-                    id="kesukaanMateri"
-                    name="kesukaanMateri"
-                    value={formData.kesukaanMateri}
+                    id="liked_aspect"
+                    name="liked_aspect"
+                    value={formData.liked_aspect}
                     onChange={onChange}
                     rows={3}
                     className="w-full rounded border px-4 py-2"
@@ -157,13 +131,13 @@ const StepThreeForm: React.FC<StepThreeProps> = ({ formData, onChange, onBack })
             </div>
 
             <div className="mt-6">
-                <label htmlFor="ketidaksukaanMateri" className="mb-2 block font-medium">
+                <label htmlFor="disliked_aspect" className="mb-2 block font-medium">
                     Materi belajar SALL-Bondo apa yang kurang Anda sukai? Jelaskan mengapa?
                 </label>
                 <textarea
-                    id="ketidaksukaanMateri"
-                    name="ketidaksukaanMateri"
-                    value={formData.ketidaksukaanMateri}
+                    id="disliked_aspect"
+                    name="disliked_aspect"
+                    value={formData.disliked_aspect}
                     onChange={onChange}
                     rows={3}
                     className="w-full rounded border px-4 py-2"
@@ -171,13 +145,13 @@ const StepThreeForm: React.FC<StepThreeProps> = ({ formData, onChange, onBack })
             </div>
 
             <div className="mt-6">
-                <label htmlFor="tantangan" className="mb-2 block font-medium">
+                <label htmlFor="challenges" className="mb-2 block font-medium">
                     Apa tantangan atau kesulitan yang Anda alami saat menggunakan SALL-Bondo?
                 </label>
                 <textarea
-                    id="tantangan"
-                    name="tantangan"
-                    value={formData.tantangan}
+                    id="challenges"
+                    name="challenges"
+                    value={formData.challenges}
                     onChange={onChange}
                     rows={3}
                     className="w-full rounded border px-4 py-2"
@@ -185,13 +159,13 @@ const StepThreeForm: React.FC<StepThreeProps> = ({ formData, onChange, onBack })
             </div>
 
             <div className="mt-6">
-                <label htmlFor="saranHarapan" className="mb-2 block font-medium">
+                <label htmlFor="suggestions" className="mb-2 block font-medium">
                     Apa saran atau harapan Anda untuk pengembangan platform SALL-Bondo di masa depan?
                 </label>
                 <textarea
-                    id="saranHarapan"
-                    name="saranHarapan"
-                    value={formData.saranHarapan}
+                    id="suggestions"
+                    name="suggestions"
+                    value={formData.suggestions}
                     onChange={onChange}
                     rows={3}
                     className="w-full rounded border px-4 py-2"
@@ -203,7 +177,10 @@ const StepThreeForm: React.FC<StepThreeProps> = ({ formData, onChange, onBack })
                 <button onClick={onBack} className="w-full rounded bg-gray-400 px-6 py-2 text-white transition-all ease-linear hover:bg-gray-500">
                     Kembali
                 </button>
-                <button className="bg-primaryy w-full rounded px-6 py-2 text-white transition-all ease-linear hover:bg-[#34699A]">Submit</button>
+                {/* <button className="bg-primaryy w-full rounded px-6 py-2 text-white transition-all ease-linear hover:bg-[#34699A]">Submit</button> */}
+                <button onClick={onSubmit} className="bg-primaryy w-full rounded px-6 py-2 text-white transition-all ease-linear hover:bg-[#34699A]">
+                    Submit
+                </button>
             </div>
         </div>
     );

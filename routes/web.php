@@ -27,6 +27,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+    Route::get('learning-reflection-survey', function () {
+        return Inertia::render('admin/SurveyLearning');
+    })->name('learning-dashboard');
+    Route::get('data-feedback', function () {
+        return Inertia::render('admin/Feedback');
+    })->name('feedback-dashboard');
 });
 
 require __DIR__.'/settings.php';
