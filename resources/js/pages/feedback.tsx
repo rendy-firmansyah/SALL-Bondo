@@ -4,11 +4,6 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 
-type FeedbackSummary = {
-    label: string;
-    value: number;
-};
-
 export default function Feedback() {
     const [learningMaterial, setLearningMaterial] = useState<string>('');
     const [usability, setUsability] = useState<string>('');
