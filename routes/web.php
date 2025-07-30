@@ -29,10 +29,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
     Route::get('learning-reflection-survey', function () {
         return Inertia::render('admin/SurveyLearning');
-    })->name('learning');
+    })->name('learning-dashboard');
     Route::get('data-feedback', function () {
         return Inertia::render('admin/Feedback');
-    })->name('feedback');
+    })->name('feedback-dashboard');
 });
 
 require __DIR__.'/settings.php';
