@@ -75,8 +75,10 @@ export default function Resources() {
             </section>
 
             {/* Quote Section */}
-            <section className="container mx-auto mt-50 mb-30 px-60 text-center">
-                <p className="text-5xl font-semibold italic">“Keep learning, keep growing — your English journey starts here and goes beyond!”</p>
+            <section className="container mx-auto mt-12 mb-8 px-4 text-center sm:px-8 md:px-16 lg:px-32 xl:px-60">
+                <p className="text-2xl font-semibold italic sm:text-3xl md:text-4xl lg:text-5xl">
+                    “Keep learning, keep growing — your English journey starts here and goes beyond!”
+                </p>
             </section>
 
             {/* Footer */}
