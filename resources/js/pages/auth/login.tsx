@@ -1,6 +1,8 @@
 import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
@@ -30,7 +32,11 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
+
         post(route('login'), {
+            onSuccess: () => {
+                toast.success('✅ Anda berhasil login!');
+            },
             onFinish: () => reset('password'),
         });
     };
@@ -98,6 +104,9 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             </form>
 
             {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
+
+            {/* Toast container */}
+            <ToastContainer position="top-right" autoClose={3000} />
         </AuthLayout>
     );
 }

@@ -4,8 +4,11 @@ import StepThreeForm from '@/components/form/StepThreeForm';
 import StepTwoForm from '@/components/form/StepTwoForm';
 import Navbar from '@/components/navbar/navbar';
 import { FormData } from '@/types/FormData';
+import { router } from '@inertiajs/react';
 import axios from 'axios';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Learning() {
     const [step, setStep] = useState(1);
@@ -59,7 +62,6 @@ export default function Learning() {
             name: formData.name,
             phone: formData.phone,
             modules: formData.modules,
-
             learning_reflection: {
                 new_knowledge: formData.new_knowledge,
                 how_helped: formData.how_helped,
@@ -69,7 +71,6 @@ export default function Learning() {
                 overall_improvement: formData.overall_improvement,
                 english_score: parseInt(formData.english_score),
             },
-
             platform_rating: {
                 easy_to_use: parseInt(formData.easy_to_use),
                 clear_instructions: parseInt(formData.clear_instructions),
@@ -99,21 +100,24 @@ export default function Learning() {
             await axios.post('/api/learningReflect', payload, {
                 headers: {
                     'Content-Type': 'application/json',
-                    Accept: 'application/json',
                 },
             });
 
-            alert('Form berhasil dikirim!');
+            toast.success('Form berhasil dikirim!', {
+                position: 'top-right',
+                autoClose: 1000,
+                onClose: () => router.visit(route('home')),
+            });
         } catch (error: unknown) {
             if (axios.isAxiosError(error)) {
                 console.error('Axios error:', error.response?.data);
+                toast.error('Gagal mengirim form. Silakan coba lagi.');
             } else {
                 console.error('Unexpected error:', error);
+                toast.error('Terjadi kesalahan tak terduga.');
             }
         }
     };
-
-    console.log('Form Data yang dikirim:', formData);
 
     return (
         <>
@@ -125,6 +129,7 @@ export default function Learning() {
                 {step === 2 && <StepTwoForm formData={formData} onChange={handleChange} onBack={() => setStep(1)} onNext={() => setStep(3)} />}
                 {step === 3 && <StepThreeForm formData={formData} onChange={handleChange} onBack={() => setStep(2)} onSubmit={handleSubmit} />}
             </div>
+            <ToastContainer />
             <Footer />
         </>
     );
