@@ -1,0 +1,253 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "SALL-Bondo API Documentation",
+        "description": "Dokumentasi API untuk platform refleksi pembelajaran SALL-Bondo.",
+        "contact": {
+            "email": "ikafitriani@unej.ac.id"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/feedback": {
+            "get": {
+                "tags": [
+                    "Survey"
+                ],
+                "summary": "Lihat hasil ringkasan survei",
+                "operationId": "62767a0001ce7befc185be7166bc7e5f",
+                "responses": {
+                    "200": {
+                        "description": "Hasil agregat jawaban",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "learning_materials_summary": {
+                                            "type": "object"
+                                        },
+                                        "website_usability_summary": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Survey"
+                ],
+                "summary": "Simpan jawaban survei",
+                "operationId": "0c5a2f7ae9f457324731107d8878ff78",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "learning_materials",
+                                    "website_usability"
+                                ],
+                                "properties": {
+                                    "learning_materials": {
+                                        "type": "string",
+                                        "example": "Very effective"
+                                    },
+                                    "website_usability": {
+                                        "type": "string",
+                                        "example": "Good"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Response saved successfully"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/learningReflect": {
+            "post": {
+                "tags": [
+                    "Reflections"
+                ],
+                "summary": "Submit reflection form",
+                "description": "Store user reflection from SALL-Bondo platform",
+                "operationId": "6cefb6f36a316db6a0b2c4a2bb485faf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Budi Santoso"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "081234567890"
+                                    },
+                                    "modules": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "learning_reflection": {
+                                        "properties": {
+                                            "new_knowledge": {
+                                                "type": "string",
+                                                "example": "Saya belajar banyak kosa kata baru."
+                                            },
+                                            "how_helped": {
+                                                "type": "string",
+                                                "example": "Materi mudah dipahami dan kontekstual."
+                                            },
+                                            "confidence": {
+                                                "type": "string",
+                                                "example": "Saya jadi lebih percaya diri berbicara dalam bahasa Inggris."
+                                            },
+                                            "reading_improvement": {
+                                                "type": "string",
+                                                "example": "Kemampuan membaca meningkat."
+                                            },
+                                            "listening_improvement": {
+                                                "type": "string",
+                                                "example": "Lebih mudah memahami percakapan."
+                                            },
+                                            "overall_improvement": {
+                                                "type": "string",
+                                                "example": "Ada peningkatan signifikan."
+                                            },
+                                            "english_score": {
+                                                "type": "integer",
+                                                "example": 8
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "platform_rating": {
+                                        "properties": {
+                                            "easy_to_use": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "clear_instructions": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "no_technical_issue": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "attractive_platform": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "appropriate_level": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "cultural_relevance": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "real_life_context": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "reading_skill": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "listening_skill": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "local_identity": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "learning_enjoyment": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "interactivity": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "independent_learning": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "learner_needs": {
+                                                "type": "integer",
+                                                "example": 4
+                                            },
+                                            "overall_satisfaction": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "recommend_to_friends": {
+                                                "type": "integer",
+                                                "example": 5
+                                            },
+                                            "liked_aspect": {
+                                                "type": "string",
+                                                "example": "Fitur interaktif dan konten lokal."
+                                            },
+                                            "disliked_aspect": {
+                                                "type": "string",
+                                                "example": "Beberapa modul terlalu panjang."
+                                            },
+                                            "challenges": {
+                                                "type": "string",
+                                                "example": "Koneksi internet lambat."
+                                            },
+                                            "suggestions": {
+                                                "type": "string",
+                                                "example": "Tambahkan fitur audio interaktif."
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Survey",
+            "description": "Survey"
+        },
+        {
+            "name": "Reflections",
+            "description": "Reflections"
+        }
+    ]
+}
