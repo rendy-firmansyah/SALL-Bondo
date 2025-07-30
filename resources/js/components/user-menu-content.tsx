@@ -15,16 +15,7 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
 
     const handleLogout = () => {
         cleanup();
-
-        router.post(
-            route('logout'),
-            {},
-            {
-                onSuccess: () => {
-                    toast.success('Anda telah logout');
-                },
-            },
-        );
+        router.post(route('logout'));
     };
 
     return (
