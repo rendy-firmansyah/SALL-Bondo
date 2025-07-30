@@ -9,6 +9,129 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/questionLearningReflect": {
+            "get": {
+                "tags": [
+                    "Pertanyaan Learning"
+                ],
+                "summary": "Ambil semua pertanyaan learning",
+                "description": "Mengambil seluruh data pertanyaan learning dari database",
+                "operationId": "getAllPertanyaanLearning",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mengambil data pertanyaan learning",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name_key": {
+                                                "type": "string",
+                                                "example": "identitas_pertanyaan"
+                                            },
+                                            "pages": {
+                                                "type": "string",
+                                                "example": "learning_materials"
+                                            },
+                                            "keterangan": {
+                                                "type": "string",
+                                                "example": "Pertanyaan mengenai materi A"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-07-30T12:00:00Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-07-30T12:00:00Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pertanyaan Learning"
+                ],
+                "summary": "Simpan data pertanyaan learning",
+                "description": "Menyimpan data pertanyaan learning ke dalam database",
+                "operationId": "storePertanyaanLearning",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name_key",
+                                    "pages",
+                                    "keterangan"
+                                ],
+                                "properties": {
+                                    "name_key": {
+                                        "type": "string",
+                                        "example": "identitas_pertanyaan"
+                                    },
+                                    "pages": {
+                                        "type": "string",
+                                        "example": "learning_materials"
+                                    },
+                                    "keterangan": {
+                                        "type": "string",
+                                        "example": "Pertanyaan mengenai materi A"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Pertanyaan berhasil disimpan.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Pertanyaan berhasil disimpan."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validasi gagal",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/feedback": {
             "get": {
                 "tags": [
@@ -241,6 +364,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Pertanyaan Learning",
+            "description": "Pertanyaan Learning"
+        },
         {
             "name": "Survey",
             "description": "Survey"
