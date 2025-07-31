@@ -3,47 +3,24 @@ import StepOneForm from '@/components/form/StepOneForm';
 import StepThreeForm from '@/components/form/StepThreeForm';
 import StepTwoForm from '@/components/form/StepTwoForm';
 import Navbar from '@/components/navbar/navbar';
-import { FormData } from '@/types/FormData';
+import { UserFormData } from '@/types/FormData';
 import { router } from '@inertiajs/react';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Learning() {
+    interface Question {
+        pages: string;
+        name_key: string;
+    }
     const [step, setStep] = useState(1);
-    const [formData, setFormData] = useState<FormData>({
+    const [questions, setQuestions] = useState<Question[]>([]);
+    const [formData, setFormData] = useState<UserFormData>({
         name: '',
         phone: '',
         modules: [],
-        new_knowledge: '',
-        how_helped: '',
-        confidence: '',
-        reading_improvement: '',
-        listening_improvement: '',
-        overall_improvement: '',
-        english_score: '',
-        easy_to_use: '',
-        clear_instructions: '',
-        no_technical_issue: '',
-        attractive_platform: '',
-        appropriate_level: '',
-        cultural_relevance: '',
-        real_life_context: '',
-        reading_skill: '',
-        listening_skill: '',
-        study_cultural: '',
-        local_identity: '',
-        learning_enjoyment: '',
-        interactivity: '',
-        independent_learning: '',
-        learner_needs: '',
-        overall_satisfaction: '',
-        recommend_to_friends: '',
-        liked_aspect: '',
-        disliked_aspect: '',
-        challenges: '',
-        suggestions: '',
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -57,43 +34,32 @@ export default function Learning() {
         setFormData((prev) => ({ ...prev, modules: newModul }));
     };
 
+    useEffect(() => {
+        axios
+            .get('/api/questionLearningReflect')
+            .then((res) => {
+                setQuestions(res.data);
+            })
+            .catch((err) => {
+                console.error('Gagal memuat pertanyaan:', err);
+            });
+    }, []);
+
     const handleSubmit = async () => {
+        const learningKeys = questions.filter((q) => q.pages === 'learning_reflection').map((q) => q.name_key);
+
+        const platformKeys = questions.filter((q) => q.pages === 'platform_rating').map((q) => q.name_key);
+
         const payload = {
             name: formData.name,
             phone: formData.phone,
             modules: formData.modules,
-            learning_reflection: {
-                new_knowledge: formData.new_knowledge,
-                how_helped: formData.how_helped,
-                confidence: formData.confidence,
-                reading_improvement: formData.reading_improvement,
-                listening_improvement: formData.listening_improvement,
-                overall_improvement: formData.overall_improvement,
-                english_score: parseInt(formData.english_score),
-            },
-            platform_rating: {
-                easy_to_use: parseInt(formData.easy_to_use),
-                clear_instructions: parseInt(formData.clear_instructions),
-                no_technical_issue: parseInt(formData.no_technical_issue),
-                attractive_platform: parseInt(formData.attractive_platform),
-                appropriate_level: parseInt(formData.appropriate_level),
-                cultural_relevance: parseInt(formData.cultural_relevance),
-                real_life_context: parseInt(formData.real_life_context),
-                reading_skill: parseInt(formData.reading_skill),
-                listening_skill: parseInt(formData.listening_skill),
-                study_cultural: formData.study_cultural,
-                local_identity: parseInt(formData.local_identity),
-                learning_enjoyment: parseInt(formData.learning_enjoyment),
-                interactivity: parseInt(formData.interactivity),
-                independent_learning: parseInt(formData.independent_learning),
-                learner_needs: parseInt(formData.learner_needs),
-                overall_satisfaction: parseInt(formData.overall_satisfaction),
-                recommend_to_friends: parseInt(formData.recommend_to_friends),
-                liked_aspect: formData.liked_aspect,
-                disliked_aspect: formData.disliked_aspect,
-                challenges: formData.challenges,
-                suggestions: formData.suggestions,
-            },
+            learning_reflection: Object.fromEntries(
+                learningKeys.map((key) => [key, isNaN(Number(formData[key])) ? formData[key] : parseInt(formData[key] as string)]),
+            ),
+            platform_rating: Object.fromEntries(
+                platformKeys.map((key) => [key, isNaN(Number(formData[key])) ? formData[key] : parseInt(formData[key] as string)]),
+            ),
         };
 
         try {

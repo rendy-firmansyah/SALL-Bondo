@@ -1,8 +1,8 @@
-import { FormData } from '@/types/FormData';
+import { UserFormData } from '@/types/FormData';
 import React from 'react';
 
 interface StepOneProps {
-    formData: FormData;
+    formData: UserFormData;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onModulChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onNext: () => void;
