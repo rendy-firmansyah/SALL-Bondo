@@ -18,10 +18,10 @@ export default function Resources() {
     ];
 
     return (
-        <>
+        <div className="bg-white">
             <Navbar />
 
-            <section className="container mx-auto mt-30 flex flex-col items-center bg-white px-4 md:flex-row md:items-center md:gap-8">
+            <section className="container mx-auto mt-30 flex flex-col items-center px-4 md:flex-row md:items-center md:gap-8">
                 {/* Gambar */}
                 <div className="flex-1 md:w-[45%] md:flex-none">
                     <img src={srcImg} alt="Learning Illustration" className="mx-auto w-full max-w-md" />
@@ -78,6 +78,6 @@ export default function Resources() {
 
             {/* Footer */}
             <Footer />
-        </>
+        </div>
     );
 }
