@@ -2,7 +2,6 @@ import srcImg from '@/asset/image-resources.png';
 import LogoModul from '@/asset/logo-modul.png';
 import Footer from '@/components/footer/footer';
 import Navbar from '@/components/navbar/navbar';
-import { Head } from '@inertiajs/react';
 
 export default function Resources() {
     const modules = [
@@ -20,13 +19,9 @@ export default function Resources() {
 
     return (
         <>
-            <Head title="Resources">
-                <link rel="preconnect" href="https://fonts.bunny.net" />
-                <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-            </Head>
             <Navbar />
 
-            <section className="container mx-auto mt-30 flex flex-col items-center px-4 md:flex-row md:items-center md:gap-8">
+            <section className="container mx-auto mt-30 flex flex-col items-center bg-white px-4 md:flex-row md:items-center md:gap-8">
                 {/* Gambar */}
                 <div className="flex-1 md:w-[45%] md:flex-none">
                     <img src={srcImg} alt="Learning Illustration" className="mx-auto w-full max-w-md" />

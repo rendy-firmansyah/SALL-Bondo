@@ -88,7 +88,7 @@ export default function Learning() {
     return (
         <>
             <Navbar />
-            <div className="mx-auto min-h-screen max-w-4xl px-6 py-10">
+            <div className="mx-auto min-h-screen max-w-4xl bg-white px-6 py-10">
                 {step === 1 && (
                     <StepOneForm formData={formData} onChange={handleChange} onModulChange={handleModulChange} onNext={() => setStep(2)} />
                 )}
