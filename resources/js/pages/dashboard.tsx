@@ -55,7 +55,7 @@ export default function Dashboard() {
             const learningCount = reflects.filter((item: any) => {
                 try {
                     const parsed = JSON.parse(item.learning_reflection);
-                    return Object.values(parsed).some((val) => val && val.trim() !== '');
+                    return Object.values(parsed).some((val) => typeof val === 'string' && val.trim() !== '');
                 } catch {
                     return false;
                 }
@@ -64,7 +64,7 @@ export default function Dashboard() {
             const platformCount = reflects.filter((item: any) => {
                 try {
                     const parsed = JSON.parse(item.platform_rating);
-                    return Object.values(parsed).some((val) => val && val.trim() !== '');
+                    return Object.values(parsed).some((val) => typeof val === 'string' && val.trim() !== '');
                 } catch {
                     return false;
                 }
