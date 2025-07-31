@@ -11,7 +11,7 @@ interface StepOneProps {
 const StepOneForm: React.FC<StepOneProps> = ({ formData, onChange, onModulChange, onNext }) => {
     return (
         <div>
-            <h1 className="mt-20 text-5xl font-bold">
+            <h1 className="text-5xl font-bold">
                 Lembar Refleksi Penggunaan <br></br> SALL-Bondo
             </h1>
             <p className="mt-3 text-lg font-light">

@@ -7,7 +7,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="fixed top-0 right-0 left-0 z-50 bg-white shadow">
+            <nav className="sticky-top top-0 right-0 left-0 z-50 bg-white shadow">
                 <div className="flex items-center justify-between px-10 py-4 md:px-20">
                     {/* Logo */}
                     <div className="font-logo text-2xl font-bold text-[#113F67]">SALL-Bondo</div>

@@ -30,7 +30,7 @@ export default function Home() {
         <div className="bg-white">
             <Navbar />
             {/* Hero Section */}
-            <section id="Hero" className="mt-8 flex min-h-screen w-full md:mt-15">
+            <section id="Hero" className="flex min-h-screen w-full">
                 <div className="mx-20 grid grid-cols-12">
                     <div className="col-span-12 flex items-center md:col-span-5">
                         <div>
