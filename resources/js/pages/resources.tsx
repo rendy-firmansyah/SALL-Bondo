@@ -50,7 +50,7 @@ export default function Resources() {
 
                 <div className="grid grid-cols-1 justify-items-center gap-x-0 gap-y-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {modules.map((module, idx) => (
-                        <div key={idx} className="flex w-72 flex-col items-center rounded-3xl border-2 border-gray-300 bg-white p-5 shadow-xl">
+                        <div key={idx} className="flex flex-col items-center rounded-3xl border-2 border-gray-300 bg-white p-10 shadow-xl">
                             {/* Logo Modul */}
                             <img src={LogoModul} alt={`Learning Modul ${module.title}`} className="mb-5 h-36 w-44 object-contain" />
 
@@ -75,7 +75,7 @@ export default function Resources() {
             </section>
 
             {/* Quote Section */}
-            <section className="container mx-auto mt-12 mb-8 px-4 text-center sm:px-8 md:px-16 lg:px-32 xl:px-60">
+            <section className="container mx-auto mt-12 mb-8 px-4 py-16 text-center sm:px-8 md:px-16 lg:px-32 xl:px-60">
                 <p className="text-2xl font-semibold italic sm:text-3xl md:text-4xl lg:text-5xl">
                     “Keep learning, keep growing — your English journey starts here and goes beyond!”
                 </p>
