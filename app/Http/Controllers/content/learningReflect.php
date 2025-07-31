@@ -99,4 +99,51 @@ class learningReflect extends Controller
             'data' => $reflection
         ], 201);
     }
+
+    /**
+ * @OA\Get(
+ *     path="/api/learningReflect",
+ *     tags={"Reflections"},
+ *     summary="Get all reflections",
+ *     description="Retrieve all user reflection data from the SALL-Bondo platform.",
+ *     operationId="getAllReflections",
+ *     @OA\Response(
+ *         response=200,
+ *         description="List of reflections retrieved successfully",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 type="object",
+ *                 @OA\Property(property="id", type="integer", example=1),
+ *                 @OA\Property(property="name", type="string", example="Budi Santoso"),
+ *                 @OA\Property(property="phone", type="string", example="081234567890"),
+ *                 @OA\Property(
+ *                     property="modules_completed",
+ *                     type="array",
+ *                     @OA\Items(type="string"),
+ *                     example={"Module 1", "Module 2"}
+ *                 ),
+ *                 @OA\Property(
+ *                     property="learning_reflection",
+ *                     type="object",
+ *                     @OA\Property(property="new_knowledge", type="string", example="Saya belajar banyak kosa kata baru.")
+ *                 ),
+ *                 @OA\Property(
+ *                     property="platform_rating",
+ *                     type="object",
+ *                     @OA\Property(property="easy_to_use", type="integer", example=5)
+ *                 ),
+ *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-07-31T14:25:36.000000Z"),
+ *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-07-31T14:25:36.000000Z")
+ *             )
+ *         )
+ *     )
+ * )
+ */
+
+
+    public function index (){
+        $reflections = Reflection::all();
+        return response()->json($reflections);
+    }
 }

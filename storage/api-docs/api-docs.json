@@ -279,6 +279,81 @@
             }
         },
         "/api/learningReflect": {
+            "get": {
+                "tags": [
+                    "Reflections"
+                ],
+                "summary": "Get all reflections",
+                "description": "Retrieve all user reflection data from the SALL-Bondo platform.",
+                "operationId": "getAllReflections",
+                "responses": {
+                    "200": {
+                        "description": "List of reflections retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Budi Santoso"
+                                            },
+                                            "phone": {
+                                                "type": "string",
+                                                "example": "081234567890"
+                                            },
+                                            "modules_completed": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "example": [
+                                                    "Module 1",
+                                                    "Module 2"
+                                                ]
+                                            },
+                                            "learning_reflection": {
+                                                "properties": {
+                                                    "new_knowledge": {
+                                                        "type": "string",
+                                                        "example": "Saya belajar banyak kosa kata baru."
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "platform_rating": {
+                                                "properties": {
+                                                    "easy_to_use": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-07-31T14:25:36.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-07-31T14:25:36.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "Reflections"
