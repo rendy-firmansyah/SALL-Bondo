@@ -30,6 +30,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('learning-reflection-survey', function () {
         return Inertia::render('admin/SurveyLearning');
     })->name('learning-dashboard');
+    Route::get('learning-reflection-survey/questions', function () {
+        return Inertia::render('admin/QuestionSurvei');
+    })->name('questions-learning');
+    Route::get('learning-reflection-survey/questions/data', function () {
+        return Inertia::render('admin/DataQuestion');
+    })->name('questions-data');
     Route::get('data-feedback', function () {
         return Inertia::render('admin/Feedback');
     })->name('feedback-dashboard');
