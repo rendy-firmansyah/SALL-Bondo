@@ -21,21 +21,23 @@ export default function Resources() {
         <div className="bg-white">
             <Navbar />
 
-            <section className="container mx-auto mt-30 flex flex-col items-center px-4 md:flex-row md:items-center md:gap-8">
-                {/* Gambar */}
-                <div className="flex-1 md:w-[45%] md:flex-none">
-                    <img src={srcImg} alt="Learning Illustration" className="mx-auto w-full max-w-md" />
-                </div>
+            <section className="">
+                <div className="mx-auto mt-20 flex flex-col items-center px-4 md:flex-row md:items-center md:gap-8">
+                    {/* Gambar */}
+                    <div className="flex-1 md:w-[45%] md:flex-none">
+                        <img src={srcImg} alt="Learning Illustration" className="mx-auto w-full max-w-md" />
+                    </div>
 
-                {/* Teks */}
-                <div className="flex-1 text-center md:w-[50%] md:flex-none md:text-left">
-                    <h1 className="mb-4 text-3xl font-bold md:text-5xl">
-                        Improve your English skills, <br /> starting here!
-                    </h1>
-                    <p className="text-justify text-2xl leading-relaxed text-gray-600">
-                        Access all learning materials in a flexible, interactive, and enjoyable way — designed to help you grow your English skills
-                        with confidence.
-                    </p>
+                    {/* Teks */}
+                    <div className="flex-1 text-center md:w-[50%] md:flex-none md:text-left">
+                        <h1 className="mb-4 text-3xl font-bold md:text-5xl">
+                            Improve your English skills, <br /> starting here!
+                        </h1>
+                        <p className="text-justify text-2xl leading-relaxed text-gray-600">
+                            Access all learning materials in a flexible, interactive, and enjoyable way — designed to help you grow your English
+                            skills with confidence.
+                        </p>
+                    </div>
                 </div>
             </section>
 

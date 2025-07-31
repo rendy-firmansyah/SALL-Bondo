@@ -76,8 +76,8 @@ export default function Feedback() {
         <div className="bg-white">
             <Navbar />
             {showStats ? (
-                <section className="mt-20">
-                    <div className="min-h-screen items-center justify-center p-8">
+                <section className="">
+                    <div className="mt-20 min-h-screen items-center justify-center p-8">
                         <h2 className="mb-10 py-5 text-center text-4xl font-bold">✨ We value your opinion!</h2>
                         <div className="mx-0 grid grid-cols-1 gap-30 pt-10 text-xl md:mx-30 lg:grid-cols-2">
                             {/* Learning Materials */}
