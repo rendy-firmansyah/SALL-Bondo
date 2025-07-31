@@ -79,7 +79,7 @@ export default function Feedback() {
                 <section className="pt-16">
                     <div className="min-h-screen items-center justify-center bg-white p-8">
                         <h2 className="mb-10 py-5 text-center text-4xl font-bold">✨ We value your opinion!</h2>
-                        <div className="mx-30 grid grid-cols-1 gap-30 pt-10 text-xl lg:grid-cols-2">
+                        <div className="mx-0 grid grid-cols-1 gap-30 pt-10 text-xl md:mx-30 lg:grid-cols-2">
                             {/* Learning Materials */}
                             <div>
                                 <p className="mb-2 font-semibold">learning materials :</p>
