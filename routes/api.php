@@ -6,6 +6,7 @@ use App\Http\Controllers\content\learningReflect;
 use App\Http\Controllers\content\PertanyaanLearningController;
 
 Route::post('/learningReflect', [learningReflect::class, 'store']);
+Route::get('/learningReflect', [learningReflect::class, 'index']);
 Route::get('/test', function () {
     return response()->json([
         'success' => true,
