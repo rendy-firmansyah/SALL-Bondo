@@ -514,6 +514,95 @@
                     }
                 }
             }
+        },
+        "/api/learningReflect/{id}": {
+            "get": {
+                "tags": [
+                    "Reflections"
+                ],
+                "summary": "Get a reflection by ID",
+                "description": "Retrieve a specific user reflection by its ID from the SALL-Bondo platform.",
+                "operationId": "getReflectionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the reflection",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Reflection retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Budi Santoso"
+                                        },
+                                        "phone": {
+                                            "type": "string",
+                                            "example": "081234567890"
+                                        },
+                                        "modules_completed": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "Module 1",
+                                                "Module 2"
+                                            ]
+                                        },
+                                        "learning_reflection": {
+                                            "properties": {
+                                                "new_knowledge": {
+                                                    "type": "string",
+                                                    "example": "Saya belajar banyak kosa kata baru."
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "platform_rating": {
+                                            "properties": {
+                                                "easy_to_use": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-07-31T14:25:36.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-07-31T14:25:36.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Reflection not found"
+                    }
+                }
+            }
         }
     },
     "tags": [

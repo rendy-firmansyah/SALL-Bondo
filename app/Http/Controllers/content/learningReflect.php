@@ -146,4 +146,64 @@ class learningReflect extends Controller
         $reflections = Reflection::all();
         return response()->json($reflections);
     }
+
+    /**
+ * @OA\Get(
+ *     path="/api/learningReflect/{id}",
+ *     tags={"Reflections"},
+ *     summary="Get a reflection by ID",
+ *     description="Retrieve a specific user reflection by its ID from the SALL-Bondo platform.",
+ *     operationId="getReflectionById",
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the reflection",
+ *         @OA\Schema(type="integer", example=1)
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Reflection retrieved successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="id", type="integer", example=1),
+ *             @OA\Property(property="name", type="string", example="Budi Santoso"),
+ *             @OA\Property(property="phone", type="string", example="081234567890"),
+ *             @OA\Property(
+ *                 property="modules_completed",
+ *                 type="array",
+ *                 @OA\Items(type="string"),
+ *                 example={"Module 1", "Module 2"}
+ *             ),
+ *             @OA\Property(
+ *                 property="learning_reflection",
+ *                 type="object",
+ *                 @OA\Property(property="new_knowledge", type="string", example="Saya belajar banyak kosa kata baru.")
+ *             ),
+ *             @OA\Property(
+ *                 property="platform_rating",
+ *                 type="object",
+ *                 @OA\Property(property="easy_to_use", type="integer", example=5)
+ *             ),
+ *             @OA\Property(property="created_at", type="string", format="date-time", example="2025-07-31T14:25:36.000000Z"),
+ *             @OA\Property(property="updated_at", type="string", format="date-time", example="2025-07-31T14:25:36.000000Z")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Reflection not found"
+ *     )
+ * )
+ */
+
+    public function show($id) {
+    $reflection = Reflection::find($id);
+
+    if (!$reflection) {
+        return response()->json(['message' => 'Reflection not found.'], 404);
+    }
+
+    return response()->json($reflection);
+}
+
 }
