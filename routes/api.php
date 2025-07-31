@@ -16,3 +16,4 @@ Route::post('/feedback', [feedbackController::class, 'store']);
 Route::get('/feedback', [feedbackController::class, 'result']);
 Route::post('/questionLearningReflect', [PertanyaanLearningController::class, 'store']);
 Route::get('/questionLearningReflect', [PertanyaanLearningController::class, 'index']);
+Route::delete('/questionLearningReflect/{id}', [PertanyaanLearningController::class, 'delete']);
