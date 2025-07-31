@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name_key');
             $table->string('pages');
             $table->string('keterangan');
+            $table->string('type');
+            $table->json('value');
         });
     }
 

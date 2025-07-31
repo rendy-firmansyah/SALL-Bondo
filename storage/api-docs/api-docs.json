@@ -42,6 +42,17 @@
                                                 "type": "string",
                                                 "example": "Pertanyaan mengenai materi A"
                                             },
+                                            "type": {
+                                                "type": "string",
+                                                "example": "radio_button"
+                                            },
+                                            "value": {
+                                                "type": "object",
+                                                "example": {
+                                                    "option1": "Pilihan A",
+                                                    "option2": "Pilihan B"
+                                                }
+                                            },
                                             "created_at": {
                                                 "type": "string",
                                                 "format": "date-time",
@@ -90,6 +101,17 @@
                                     "keterangan": {
                                         "type": "string",
                                         "example": "Pertanyaan mengenai materi A"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "radio_button"
+                                    },
+                                    "value": {
+                                        "type": "object",
+                                        "example": {
+                                            "option1": "Pilihan A",
+                                            "option2": "Pilihan B"
+                                        }
                                     }
                                 },
                                 "type": "object"
@@ -122,6 +144,62 @@
                                     "properties": {
                                         "errors": {
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/questionLearningReflect/{id}": {
+            "delete": {
+                "tags": [
+                    "Pertanyaan Learning"
+                ],
+                "summary": "Hapus pertanyaan learning berdasarkan ID",
+                "description": "Menghapus satu data pertanyaan learning dari database berdasarkan ID",
+                "operationId": "deletePertanyaanLearning",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID dari pertanyaan learning yang akan dihapus",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pertanyaan berhasil dihapus",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Pertanyaan berhasil dihapus."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Data tidak ditemukan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Pertanyaan tidak ditemukan."
                                         }
                                     },
                                     "type": "object"

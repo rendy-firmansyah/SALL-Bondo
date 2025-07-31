@@ -14,5 +14,7 @@ class Pertanyaan_Learning extends Model
         'name_key',
         'pages',
         'keterangan',
+        'type',
+        'value',
     ];
 }

@@ -23,7 +23,9 @@ class PertanyaanLearningController extends Controller
  *             required={"name_key", "pages", "keterangan"},
  *             @OA\Property(property="name_key", type="string", example="identitas_pertanyaan"),
  *             @OA\Property(property="pages", type="string", example="learning_materials"),
- *             @OA\Property(property="keterangan", type="string", example="Pertanyaan mengenai materi A")
+ *             @OA\Property(property="keterangan", type="string", example="Pertanyaan mengenai materi A"),
+ *             @OA\Property(property="type", type="string", example="radio_button"),
+ *             @OA\Property(property="value",type="object",example={"option1": "Pilihan A", "option2": "Pilihan B"})
  *         )
  *     ),
  *     @OA\Response(
@@ -48,13 +50,21 @@ class PertanyaanLearningController extends Controller
             'name_key' => 'required|string|max:255',
             'pages' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'value' => 'nullable|array',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        Pertanyaan_Learning::create($validator->validated());
+        Pertanyaan_Learning::create([
+            'name_key' => $request->name_key,
+            'pages' => $request->pages,
+            'keterangan' => $request->keterangan,
+            'type' => $request->type,
+            'value' => json_encode($request->value),
+        ]);
 
         return response()->json(['message' => 'Pertanyaan berhasil disimpan.']);
     }
@@ -76,6 +86,8 @@ class PertanyaanLearningController extends Controller
      *                 @OA\Property(property="name_key", type="string", example="identitas_pertanyaan"),
      *                 @OA\Property(property="pages", type="string", example="learning_materials"),
      *                 @OA\Property(property="keterangan", type="string", example="Pertanyaan mengenai materi A"),
+     *                 @OA\Property(property="type", type="string", example="radio_button"),
+     *                 @OA\Property(property="value",type="object",example={"option1": "Pilihan A", "option2": "Pilihan B"}),
      *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-07-30T12:00:00Z"),
      *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-07-30T12:00:00Z")
      *             )
@@ -86,5 +98,42 @@ class PertanyaanLearningController extends Controller
     public function index() {
         $pertanyaan = Pertanyaan_Learning::all();
         return response()->json($pertanyaan);
+    }
+
+        /**
+     * @OA\Delete(
+     *     path="/api/questionLearningReflect/{id}",
+     *     tags={"Pertanyaan Learning"},
+     *     summary="Hapus pertanyaan learning berdasarkan ID",
+     *     description="Menghapus satu data pertanyaan learning dari database berdasarkan ID",
+     *     operationId="deletePertanyaanLearning",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID dari pertanyaan learning yang akan dihapus",
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Pertanyaan berhasil dihapus",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Pertanyaan berhasil dihapus.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Data tidak ditemukan",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Pertanyaan tidak ditemukan.")
+     *         )
+     *     )
+     * )
+     */
+
+    public function delete($id) {
+        $pertanyaan = Pertanyaan_Learning::find($id);
+        $pertanyaan->delete();
+        return response()->json(['message' => 'Pertanyaan berhasil dihapus.']);
     }
 }
