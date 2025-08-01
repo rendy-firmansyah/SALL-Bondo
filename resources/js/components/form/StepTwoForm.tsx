@@ -1,6 +1,7 @@
 import { UserFormData } from '@/types/FormData';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 interface Question {
     id: number;
@@ -36,6 +37,26 @@ const StepTwoForm: React.FC<StepTwoProps> = ({ formData, onChange, onBack, onNex
         };
         fetchQuestions();
     }, []);
+
+    const handleNext = () => {
+        const requiredQuestions = questions.filter((q) => q.pages === 'learning_reflection');
+        const isAnyEmpty = requiredQuestions.some((q) => {
+            const value = formData[q.name_key];
+            return (
+                value === undefined ||
+                value === null ||
+                (typeof value === 'string' && value.trim() === '') ||
+                (Array.isArray(value) && value.length === 0)
+            );
+        });
+
+        if (isAnyEmpty) {
+            toast.error('Lengkapi field yang lain');
+            return;
+        }
+
+        onNext();
+    };
 
     return (
         <div>
@@ -88,7 +109,10 @@ const StepTwoForm: React.FC<StepTwoProps> = ({ formData, onChange, onBack, onNex
                 <button onClick={onBack} className="w-full rounded bg-gray-400 px-6 py-2 text-white transition-all ease-linear hover:bg-gray-500">
                     Kembali
                 </button>
-                <button onClick={onNext} className="bg-primaryy w-full rounded px-6 py-2 text-white transition-all ease-linear hover:bg-[#34699A]">
+                <button
+                    onClick={handleNext}
+                    className="bg-primaryy w-full rounded px-6 py-2 text-white transition-all ease-linear hover:bg-[#34699A]"
+                >
                     Berikutnya
                 </button>
             </div>

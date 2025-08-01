@@ -1,5 +1,7 @@
 import { UserFormData } from '@/types/FormData';
 import React from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface StepOneProps {
     formData: UserFormData;
@@ -9,6 +11,23 @@ interface StepOneProps {
 }
 
 const StepOneForm: React.FC<StepOneProps> = ({ formData, onChange, onModulChange, onNext }) => {
+    const handleNext = () => {
+        if (!formData.name.trim()) {
+            toast.error('Nama harus diisi');
+            return;
+        }
+        if (!formData.phone.trim()) {
+            toast.error('Nomor HP harus diisi');
+            return;
+        }
+        if (formData.modules.length === 0) {
+            toast.error('Pilih minimal satu modul');
+            return;
+        }
+
+        onNext();
+    };
+
     return (
         <div>
             <h1 className="text-5xl font-bold">
@@ -69,7 +88,10 @@ const StepOneForm: React.FC<StepOneProps> = ({ formData, onChange, onModulChange
                 </div>
             </div>
 
-            <button onClick={onNext} className="bg-primaryy mt-6 w-full rounded px-6 py-2 text-white transition-all ease-linear hover:bg-[#34699A]">
+            <button
+                onClick={handleNext}
+                className="bg-primaryy mt-6 w-full rounded px-6 py-2 text-white transition-all ease-linear hover:bg-[#34699A]"
+            >
                 Berikutnya
             </button>
         </div>
