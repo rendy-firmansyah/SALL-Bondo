@@ -166,10 +166,8 @@ export default function SurveyLearning() {
                                             <ul className="list-disc pl-5">
                                                 {Object.entries(selectedData.learning_reflection).map(([key, value]) => (
                                                     <li key={`learning-${key}`}>
-                                                        <strong>{key.replace(/_/g, ' ')}:</strong>{' '}
-                                                        {typeof value === 'number' || !isNaN(Number(value))
-                                                            ? `${value} - ${interpretRating(value)}`
-                                                            : value}
+                                                        <strong>{key.replace(/_/g, ' ')}:</strong>
+                                                        {value}
                                                     </li>
                                                 ))}
                                             </ul>
