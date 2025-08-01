@@ -50,6 +50,10 @@ export default function Footer() {
                         <h1 className="text-lg font-semibold">E-mail</h1>
                     </div>
                     <h1 className="mt-2 text-lg font-medium">ikafitriani@mail.unej.ac.id</h1>
+                    <h1 className="mt-6 flex flex-col gap-1">
+                        <span className="font-semibold">Media SALLBondo ini didanai oleh:</span>Direktorat Penelitian dan Pengabdian Kepada Masyarakat
+                        Tahun Anggaran 2025
+                    </h1>
                 </div>
             </div>
         </div>
