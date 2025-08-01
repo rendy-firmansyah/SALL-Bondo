@@ -3,6 +3,8 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import axios from 'axios';
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import { Trash } from 'lucide-react';
 
 export default function FormQuestion() {
@@ -59,13 +61,13 @@ export default function FormQuestion() {
 
             await axios.post('/api/questionLearningReflect', payload);
 
-            alert('Pertanyaan berhasil dikirim!');
+            toast.success('Pertanyaan berhasil disimpan!');
             setDataLearning({ name_key: '', keterangan: '', pages: 'learning_reflection' });
             setValueLearning({});
             setTypeLearning('text');
         } catch (error) {
             console.error(error);
-            alert('Terjadi kesalahan saat mengirim data.');
+            toast.error('Terjadi kesalahan saat menyimpan pertanyaan.');
         } finally {
             setLoadingLearning(false);
         }
@@ -170,6 +172,7 @@ export default function FormQuestion() {
                     </div>
                 </form>
             </div>
+            <ToastContainer />
         </AppLayout>
     );
 }
