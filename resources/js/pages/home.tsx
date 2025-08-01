@@ -469,8 +469,8 @@ export default function Home() {
                                     Team of College Students
                                 </h1>
                             </div>
-                            <div className="mt-20">
-                                <div className="flex flex-wrap gap-10">
+                            <div className="mt-20 flex">
+                                <div className="flex flex-wrap justify-center gap-10">
                                     <div className="flex flex-col gap-y-5">
                                         <img src={FaridaImage} alt="Farida" className="h-[260px] w-[260px]" />
                                         <div className="flex flex-col text-center">
