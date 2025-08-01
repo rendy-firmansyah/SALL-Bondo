@@ -31,7 +31,7 @@ export default function Home() {
             <Navbar />
             {/* Hero Section */}
             <section id="Hero" className="flex min-h-screen w-full">
-                <div className="mx-20 grid grid-cols-12">
+                <div className="mx-10 grid grid-cols-12 md:mx-20">
                     <div className="col-span-12 flex items-center md:col-span-5">
                         <div>
                             <h3 className="text-tertiaryy flex items-center gap-2 text-lg md:text-2xl">
@@ -453,7 +453,7 @@ export default function Home() {
 
             {/* Collage Section */}
             <section className="flex min-h-screen w-full">
-                <div className="relative h-auto w-full bg-[#F2FAFF] px-20 py-20">
+                <div className="relative h-auto w-full bg-[#F2FAFF] px-10 py-20 md:px-20">
                     <div className="flex w-full justify-center">
                         <div>
                             <div className="flex justify-center">
