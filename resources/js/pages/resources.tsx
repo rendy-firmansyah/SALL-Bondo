@@ -43,7 +43,7 @@ export default function Resources() {
 
             {/* List of Modules */}
             <section className="container mx-auto mt-16 px-4">
-                <h2 className="mb-10 ps-14 text-4xl font-bold">List of Learning Modules (SALL Resources)</h2>
+                <h2 className="mb-10 ps-0 md:ps-14 text-4xl font-bold text-center md:text-left">List of Learning Modules (SALL Resources)</h2>
 
                 <div className="grid grid-cols-1 justify-items-center gap-x-0 gap-y-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {modules.map((module, idx) => (
