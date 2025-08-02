@@ -2,6 +2,8 @@ import LogoModul from '@/asset/logo-modul.png';
 import Footer from '@/components/footer/footer';
 import Navbar from '@/components/navbar/navbar';
 import axios from 'axios';
+import 'keen-slider/keen-slider.min.css';
+import { useKeenSlider } from 'keen-slider/react';
 import { useEffect, useState } from 'react';
 
 type Portofolio = {
@@ -18,6 +20,18 @@ type Portofolio = {
 
 export default function Portofolio() {
     const [portofolio, setPortofolio] = useState<Portofolio[]>([]);
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [sliderRef, sliderInstanceRef] = useKeenSlider<HTMLDivElement>({
+        loop: true,
+        mode: 'snap',
+        slides: {
+            perView: 1,
+            spacing: 15,
+        },
+        slideChanged(slider) {
+            setCurrentSlide(slider.track.details.rel);
+        },
+    });
 
     const fetchData = async () => {
         const response = await axios.get('/api/porto?id=');
@@ -45,10 +59,10 @@ export default function Portofolio() {
         <div className="bg-white">
             <Navbar />
             <div className="min-h-screen">
-                <div className="mx-20">
+                <div className="mx-10 md:mx-20">
                     <div className="mt-20 flex justify-center">
                         <div className="">
-                            <h1 className="flex items-center justify-center gap-2 font-sans text-3xl font-semibold md:text-4xl">
+                            <h1 className="flex items-center justify-center gap-2 font-sans text-2xl font-semibold md:text-4xl">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                         <path
@@ -59,7 +73,7 @@ export default function Portofolio() {
                                 </span>
                                 Portofolio Student's
                             </h1>
-                            <p className="mt-5 w-[790px] text-center text-xl">
+                            <p className="mt-5 w-auto text-center text-xl md:w-[790px]">
                                 A collection of student works showcasing their English learning through the culture of Situbondo
                             </p>
                         </div>
@@ -118,10 +132,10 @@ export default function Portofolio() {
                     <div className="">
                         <div className="flex justify-center">
                             <div>
-                                <h1 className="flex items-center justify-center gap-2 font-sans text-3xl font-semibold md:text-4xl">
+                                <h1 className="flex items-center justify-center gap-2 font-sans text-2xl font-semibold md:text-4xl">
                                     Video Portfolio
                                 </h1>
-                                <p className="mt-5 mb-8 w-[790px] text-center text-xl">
+                                <p className="mt-5 mb-8 w-auto text-center text-xl md:w-[790px]">
                                     Creative student videos that celebrate Situbondo's culture in English
                                 </p>
                             </div>
@@ -129,24 +143,48 @@ export default function Portofolio() {
                         {portofolio.length === 0 ? (
                             <h1 className="text-center text-lg font-semibold text-gray-500">Tidak ada data portofolio.</h1>
                         ) : (
-                            <div className="mb-20 flex justify-center">
-                                {portoVideo.map((item) => (
-                                    <div key={item.id} className="h-auto w-[600px] rounded-xl border-2 border-gray-300 bg-white p-5 shadow-xl">
-                                        {/* Embed Video */}
-                                        <div className="mt-4 aspect-video">
-                                            <iframe
-                                                className="h-full w-full rounded-xl"
-                                                src={getYoutubeEmbedUrl(item.link_video)}
-                                                title={item.judul}
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowFullScreen
-                                            />
+                            <div className="flex flex-col justify-center">
+                                <div ref={sliderRef} className="keen-slider">
+                                    {portoVideo.map((item) => (
+                                        <div key={item.id} className="keen-slider__slide flex justify-center">
+                                            <div className="h-auto w-[600px] rounded-xl border-2 border-gray-300 bg-white p-5 shadow-xl">
+                                                {/* Embed Video */}
+                                                <div className="mt-4 aspect-video">
+                                                    <iframe
+                                                        className="h-full w-full rounded-xl"
+                                                        src={getYoutubeEmbedUrl(item.link_video)}
+                                                        title={item.judul}
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowFullScreen
+                                                    />
+                                                </div>
+                                                {/* Judul & Deskripsi */}
+                                                <h3 className="mt-2.5 text-center text-xl font-semibold">{item.judul}</h3>
+                                                <p className="text-center text-[16px] text-gray-500">{item.deskripsi}</p>
+                                                <div className="text-end">
+                                                    <a
+                                                        href={route('detailPortofolio', { id: item.id })}
+                                                        className="text-sm font-semibold text-[#34699A]"
+                                                    >
+                                                        Selengkapnya
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        {/* Judul & Deskripsi */}
-                                        <h3 className="mt-2.5 text-center text-xl font-semibold">{item.judul}</h3>
-                                        <p className="text-center text-[16px] text-gray-500">{item.deskripsi}</p>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
+                                {/* Dot Navigation */}
+                                <div className="mt-4 mb-20 flex justify-center gap-2">
+                                    {portoVideo.map((_, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => sliderInstanceRef.current?.moveToIdx(idx)}
+                                            className={`h-3 w-3 rounded-full transition-all duration-300 ${
+                                                currentSlide === idx ? 'scale-110 bg-[#34699A]' : 'bg-gray-300'
+                                            }`}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                         )}
                     </div>
