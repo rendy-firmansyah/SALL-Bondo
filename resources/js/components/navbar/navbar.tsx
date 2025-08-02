@@ -22,22 +22,27 @@ export default function Navbar() {
                     {/* Desktop Navigation */}
                     <ul className="hidden items-center gap-10 font-medium text-gray-700 md:flex">
                         <li>
-                            <a href={route('home')} className="hover:text-secondaryy">
+                            <a href={route('home')} className="hover:text-[#34699A]">
                                 Home
                             </a>
                         </li>
                         <li>
-                            <a href={route('resources')} className="hover:text-secondaryy">
+                            <a href={route('portofolio')} className="hover:text-[#34699A]">
+                                Portofolio
+                            </a>
+                        </li>
+                        <li>
+                            <a href={route('resources')} className="hover:text-[#34699A]">
                                 Resource
                             </a>
                         </li>
                         <li>
-                            <Link href={route('learning')} className="hover:text-secondaryy">
+                            <Link href={route('learning')} className="hover:text-[#34699A]">
                                 Learning Reflection
                             </Link>
                         </li>
                         <li>
-                            <a href={route('feedback')} className="hover:text-secondaryy">
+                            <a href={route('feedback')} className="hover:text-[#34699A]">
                                 Feedback
                             </a>
                         </li>
@@ -70,6 +75,9 @@ export default function Navbar() {
                 <div className="flex flex-col space-y-6 p-6 font-medium text-gray-700">
                     <a href={route('home')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
                         Home
+                    </a>
+                    <a href={route('portofolio')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
+                        Portofolio
                     </a>
                     <a href={route('resources')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
                         Resource
