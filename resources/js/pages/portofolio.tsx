@@ -1,77 +1,46 @@
 import LogoModul from '@/asset/logo-modul.png';
 import Footer from '@/components/footer/footer';
 import Navbar from '@/components/navbar/navbar';
-import { useEffect, useRef } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
+type Portofolio = {
+    id: number;
+    judul: string;
+    deskripsi: string;
+    link_video: string;
+    file_path: string | null;
+    original_name: string | null;
+    mime_type: string | null;
+    created_at: string;
+    updated_at: string;
+};
 
 export default function Portofolio() {
-    const sliderRef = useRef<HTMLDivElement | null>(null);
-    const portofolio = [
-        {
-            title: 'Portofolio 1',
-            deskripsi: 'Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus.',
-            link: 'https://view.genially.com/686ce3d29295cb24924dcab3',
-        },
-        {
-            title: 'Portofolio 2',
-            deskripsi: 'Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus.',
-            link: 'https://view.genially.com/686ce3d29295cb24924dcab3',
-        },
-        {
-            title: 'Portofolio 3',
-            deskripsi: 'Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus.',
-            link: 'https://view.genially.com/686ce3d29295cb24924dcab3',
-        },
-        {
-            title: 'Portofolio 4',
-            deskripsi: 'Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus.',
-            link: 'https://view.genially.com/686ce3d29295cb24924dcab3',
-        },
-    ];
+    const [portofolio, setPortofolio] = useState<Portofolio[]>([]);
 
-    const videos = [
-        {
-            title: 'Traditional Market Tour',
-            description: 'By Ayu & Rian – Exploring local market culture in English.',
-            youtubeId: 'YOUTUBE_ID_1',
-        },
-        {
-            title: 'Local Culinary Review',
-            description: 'By Dika – Presenting Situbondo’s food culture in English.',
-            youtubeId: 'YOUTUBE_ID_2',
-        },
-        {
-            title: 'Local Culinary Review',
-            description: 'By Dika – Presenting Situbondo’s food culture in English.',
-            youtubeId: 'YOUTUBE_ID_3',
-        },
-        {
-            title: 'Local Culinary Review',
-            description: 'By Dika – Presenting Situbondo’s food culture in English.',
-            youtubeId: 'YOUTUBE_ID_4',
-        },
-        // Add more videos as needed
-    ];
+    const fetchData = async () => {
+        const response = await axios.get('/api/porto?id=');
+        setPortofolio(response.data);
+    };
+
+    console.log(portofolio);
 
     useEffect(() => {
-        const slider = sliderRef.current;
-        if (!slider) return;
-
-        const slideWidth = slider.firstElementChild?.clientWidth || 0;
-        const gap = 16; // gap-4
-        const totalWidth = slideWidth + gap;
-
-        const interval = setInterval(() => {
-            if (!slider) return;
-
-            if (slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth) {
-                slider.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-                slider.scrollBy({ left: totalWidth, behavior: 'smooth' });
-            }
-        }, 5000);
-
-        return () => clearInterval(interval);
+        fetchData();
     }, []);
+
+    const isImage = (mime: string | null) => mime?.startsWith('image/');
+    const isPdf = (mime: string | null) => mime === 'application/pdf';
+    const portoGambar = portofolio.filter((item) => !item.link_video);
+    const portoVideo = portofolio.filter((item) => item.link_video);
+
+    const getYoutubeEmbedUrl = (url: string): string => {
+        const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/;
+        const match = url.match(regex);
+        return match ? `https://www.youtube.com/embed/${match[1]}` : url;
+    };
+
     return (
         <div className="bg-white">
             <Navbar />
@@ -97,34 +66,54 @@ export default function Portofolio() {
                     </div>
                     <div className="mt-12 mb-8 h-[3px] w-auto bg-gray-300"></div>
                     <div className="mb-20">
-                        <div className="grid grid-cols-1 justify-items-center gap-6 md:grid-cols-4">
-                            {portofolio.map((module, idx) => (
-                                <div key={idx} className="flex justify-center rounded-3xl border-2 border-gray-300 bg-white p-8 shadow-xl">
-                                    <div>
-                                        {/* Logo Modul */}
-                                        <div className="flex justify-center">
-                                            <img src={LogoModul} alt={`Learning Modul ${module.title}`} className="mb-5 h-36 w-44 object-contain" />
-                                        </div>
+                        {portofolio.length === 0 ? (
+                            <h1 className="text-center text-lg font-semibold text-gray-500">Tidak ada data portofolio.</h1>
+                        ) : (
+                            <div className="grid grid-cols-1 justify-items-center gap-6 md:grid-cols-4">
+                                {portoGambar.map((item) => (
+                                    <div key={item.id} className="rounded-xl border-2 border-gray-300 bg-white p-8 shadow-xl">
+                                        {/* Gambar */}
+                                        {item.file_path && (
+                                            <div className="mb-5 flex justify-center">
+                                                {isImage(item.mime_type) ? (
+                                                    <img
+                                                        src={`/storage/${item.file_path}`}
+                                                        alt={`Gambar ${item.judul}`}
+                                                        className="h-36 w-44 object-contain"
+                                                    />
+                                                ) : isPdf(item.mime_type) ? (
+                                                    <img src={LogoModul} alt="PDF File" className="h-36 w-44 object-contain" />
+                                                ) : null}
+                                            </div>
+                                        )}
 
                                         {/* Judul */}
-                                        <h3 className="text-xl font-semibold">{module.title}</h3>
+                                        <h3 className="text-xl font-semibold">{item.judul}</h3>
 
-                                        {/* Subtitle (Chapter 1, Chapter 2, dst) */}
-                                        <p className="text-[16px] text-gray-500">{module.deskripsi}</p>
-
-                                        {/* Tombol dengan link unik */}
-                                        <a
-                                            href={module.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-secondaryy mt-5 flex justify-end text-sm font-semibold"
-                                        >
-                                            Selengkapnya
-                                        </a>
+                                        {/* Deskripsi */}
+                                        <p className="mt-2 text-[16px] text-gray-500">{item.deskripsi}</p>
+                                        <div className="text-end">
+                                            {isPdf(item.mime_type) ? (
+                                                // Jika PDF, buka file langsung
+                                                <a
+                                                    href={`/storage/${item.file_path}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-sm font-semibold text-[#34699A]"
+                                                >
+                                                    Lihat PDF
+                                                </a>
+                                            ) : (
+                                                // Jika gambar, buka halaman detail
+                                                <a href={route('detailPortofolio', { id: item.id })} className="text-sm font-semibold text-[#34699A]">
+                                                    Selengkapnya
+                                                </a>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                     <div className="">
                         <div className="flex justify-center">
@@ -137,23 +126,29 @@ export default function Portofolio() {
                                 </p>
                             </div>
                         </div>
-
-                        <div ref={sliderRef} className="mb-20 flex snap-x gap-4 overflow-x-auto scroll-smooth">
-                            {videos.map((video, index) => (
-                                <div key={index} className="w-full shrink-0 snap-start rounded-xl bg-white p-4 shadow-md sm:w-[500px]">
-                                    <div className="mb-3 aspect-video">
-                                        <iframe
-                                            className="h-full w-full rounded-md"
-                                            src={`https://www.youtube.com/embed/${video.youtubeId}`}
-                                            frameBorder="0"
-                                            allowFullScreen
-                                        />
+                        {portofolio.length === 0 ? (
+                            <h1 className="text-center text-lg font-semibold text-gray-500">Tidak ada data portofolio.</h1>
+                        ) : (
+                            <div className="mb-20 flex justify-center">
+                                {portoVideo.map((item) => (
+                                    <div key={item.id} className="h-auto w-[600px] rounded-xl border-2 border-gray-300 bg-white p-5 shadow-xl">
+                                        {/* Embed Video */}
+                                        <div className="mt-4 aspect-video">
+                                            <iframe
+                                                className="h-full w-full rounded-xl"
+                                                src={getYoutubeEmbedUrl(item.link_video)}
+                                                title={item.judul}
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            />
+                                        </div>
+                                        {/* Judul & Deskripsi */}
+                                        <h3 className="mt-2.5 text-center text-xl font-semibold">{item.judul}</h3>
+                                        <p className="text-center text-[16px] text-gray-500">{item.deskripsi}</p>
                                     </div>
-                                    <h3 className="text-xl font-semibold">{video.title}</h3>
-                                    <p className="text-sm text-gray-500">{video.description}</p>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

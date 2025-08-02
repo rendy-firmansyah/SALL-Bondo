@@ -11,7 +11,7 @@ Route::get('/portofolio', function () {
     return Inertia::render('portofolio');
 })->name('portofolio');
 
-Route::get('/detail-portofolio', function () {
+Route::get('/detail-portofolio{id}', function () {
     return Inertia::render('detailPortofolio');
 })->name('detailPortofolio');
 
