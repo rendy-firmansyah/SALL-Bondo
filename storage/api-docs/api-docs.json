@@ -210,6 +210,152 @@
                 }
             }
         },
+        "/api/porto": {
+            "get": {
+                "tags": [
+                    "Portofolio"
+                ],
+                "summary": "Ambil semua data portofolio",
+                "operationId": "bae5d194afac4add29fa2baea0cb6428",
+                "responses": {
+                    "200": {
+                        "description": "Daftar semua portofolio",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Portofolio"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Portofolio"
+                ],
+                "summary": "Simpan data portofolio baru",
+                "operationId": "89e0f10f6732935332171ee3dbf03456",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "judul",
+                                    "deskripsi"
+                                ],
+                                "properties": {
+                                    "judul": {
+                                        "type": "string",
+                                        "example": "Judul Portofolio"
+                                    },
+                                    "deskripsi": {
+                                        "type": "string",
+                                        "example": "Deskripsi Portofolio"
+                                    },
+                                    "link_video": {
+                                        "type": "string",
+                                        "format": "url",
+                                        "example": "https://youtube.com/...",
+                                        "nullable": true
+                                    },
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Portofolio berhasil disimpan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Portofolio berhasil disimpan."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validasi gagal",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/porto/{id}": {
+            "get": {
+                "tags": [
+                    "Portofolio"
+                ],
+                "summary": "Ambil detail portofolio berdasarkan ID",
+                "operationId": "dc86e55d0248aefd3245a4ce24836209",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detail portofolio ditemukan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Portofolio"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Portofolio tidak ditemukan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Portofolio not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/feedback": {
             "get": {
                 "tags": [
@@ -605,7 +751,69 @@
             }
         }
     },
+    "components": {
+        "schemas": {
+            "Portofolio": {
+                "title": "Portofolio",
+                "required": [
+                    "id",
+                    "judul",
+                    "deskripsi"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "judul": {
+                        "type": "string",
+                        "example": "Judul Portofolio"
+                    },
+                    "deskripsi": {
+                        "type": "string",
+                        "example": "Deskripsi tentang project"
+                    },
+                    "link_video": {
+                        "type": "string",
+                        "format": "url",
+                        "example": "https://youtube.com/...",
+                        "nullable": true
+                    },
+                    "file_path": {
+                        "type": "string",
+                        "example": "uploads/portofolio/file.pdf",
+                        "nullable": true
+                    },
+                    "original_name": {
+                        "type": "string",
+                        "example": "file.pdf",
+                        "nullable": true
+                    },
+                    "mime_type": {
+                        "type": "string",
+                        "example": "application/pdf",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-08-01T12:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-08-01T12:00:00Z"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
     "tags": [
+        {
+            "name": "Portofolio",
+            "description": "API untuk pengelolaan portofolio"
+        },
         {
             "name": "Pertanyaan Learning",
             "description": "Pertanyaan Learning"
