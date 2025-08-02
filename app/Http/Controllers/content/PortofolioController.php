@@ -185,4 +185,100 @@ class PortofolioController extends Controller
         $portofolio->delete();
         return response()->json(['message' => 'Portofolio berhasil dihapus.']);
     }
+
+    /**
+ * @OA\Put(
+ *     path="/api/porto/{id}",
+ *     summary="Perbarui data portofolio berdasarkan ID",
+ *     tags={"Portofolio"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="multipart/form-data",
+ *             @OA\Schema(
+ *                 @OA\Property(property="judul", type="string", example="Judul Baru"),
+ *                 @OA\Property(property="deskripsi", type="string", example="Deskripsi Baru"),
+ *                 @OA\Property(property="link_video", type="string", format="url", nullable=true, example="https://youtube.com/..."),
+ *                 @OA\Property(property="file", type="string", format="binary", nullable=true)
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Portofolio berhasil diperbarui",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Portofolio berhasil diperbarui.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Portofolio tidak ditemukan",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Portofolio not found.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validasi gagal",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="errors", type="object")
+ *         )
+ *     )
+ * )
+ */
+    public function update(Request $request, $id)
+    {
+        $portofolio = Portofolio::find($id);
+
+        if (!$portofolio) {
+            return response()->json(['message' => 'Portofolio not found.'], 404);
+        }
+
+        $validated = Validator::make($request->all(), [
+            'judul' => 'sometimes|required|string|max:255',
+            'deskripsi' => 'sometimes|required|string|max:255',
+            'link_video' => 'nullable|url|max:255',
+            'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
+        ]);
+
+        if ($validated->fails()) {
+            return response()->json(['errors' => $validated->errors()], 422);
+        }
+
+        if ($request->has('judul')) {
+            $portofolio->judul = $request->judul;
+        }
+
+        if ($request->has('deskripsi')) {
+            $portofolio->deskripsi = $request->deskripsi;
+        }
+
+        if ($request->has('link_video')) {
+            $portofolio->link_video = $request->link_video;
+        }
+
+        if ($request->hasFile('file')) {
+            // Hapus file lama jika ada
+            if ($portofolio->file_path && Storage::disk('public')->exists($portofolio->file_path)) {
+                Storage::disk('public')->delete($portofolio->file_path);
+            }
+
+            $file = $request->file('file');
+            $path = $file->store('uploads/portofolio', 'public');
+            $portofolio->file_path = $path;
+            $portofolio->original_name = $file->getClientOriginalName();
+            $portofolio->mime_type = $file->getClientMimeType();
+        }
+
+        $portofolio->save();
+
+        return response()->json(['message' => 'Portofolio berhasil diperbarui.']);
+    }
+
 }

@@ -23,3 +23,5 @@ Route::delete('/questionLearningReflect/{id}', [PertanyaanLearningController::cl
 Route::post('/porto', [PortofolioController::class, 'store']);
 Route::get('/porto', [PortofolioController::class, 'index']);
 Route::get('/porto/{id}', [PortofolioController::class, 'show']);
+Route::put('/porto/{id}', [PortofolioController::class, 'update']);
+Route::delete('/porto/{id}', [PortofolioController::class, 'delete']);
