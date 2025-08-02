@@ -147,4 +147,42 @@ class PortofolioController extends Controller
 
         return response()->json($portofolio);
     }
+    
+    /**
+     * @OA\Delete(
+     *     path="/api/porto/{id}",
+     *     summary="Hapus portofolio berdasarkan ID",
+     *     tags={"Portofolio"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Portofolio berhasil dihapus",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Portofolio berhasil dihapus.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Portofolio tidak ditemukan",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Portofolio not found.")
+     *         )
+     *     )
+     * )
+     */
+    public function delete($id) {
+        $portofolio = Portofolio::find($id);
+
+        if (!$portofolio) {
+            return response()->json(['message' => 'Portofolio not found.'], 404);
+        }
+
+        $portofolio->delete();
+        return response()->json(['message' => 'Portofolio berhasil dihapus.']);
+    }
 }
