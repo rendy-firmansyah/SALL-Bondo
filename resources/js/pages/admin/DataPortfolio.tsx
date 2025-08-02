@@ -18,10 +18,11 @@ interface PortfolioItem {
 export default function DataPortfolio() {
     const [portfolios, setPortfolios] = useState<PortfolioItem[]>([]);
     const [showModal, setShowModal] = useState(false);
-    const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
-    const [deleteId, setDeleteId] = useState<number | null>(null);
     const [isEditMode, setIsEditMode] = useState(false);
     const [editingId, setEditingId] = useState<number | null>(null);
+    const [deleteId, setDeleteId] = useState<number | null>(null);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
 
     const [formData, setFormData] = useState({
         link_video: '',
@@ -71,8 +72,18 @@ export default function DataPortfolio() {
         if (file) payload.append('file', file);
 
         try {
-            await axios.post('/api/porto', payload);
+            if (isEditMode && editingId !== null) {
+                await axios.post(`/api/porto/${editingId}?_method=PUT`, payload, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+            } else {
+                await axios.post('/api/porto', payload);
+            }
+
             resetForm();
+            setShowModal(false);
             fetchPortfolios();
         } catch (error) {
             console.error('Gagal kirim data:', error);
@@ -92,29 +103,31 @@ export default function DataPortfolio() {
         }
     };
 
+    const resetForm = () => {
+        setFormData({ link_video: '', judul: '', deskripsi: '' });
+        setFile(null);
+        setShowModal(false);
+        setIsEditMode(false);
+        setEditingId(null);
+    };
+
     const handleDeleteClick = (id: number) => {
         setDeleteId(id);
-        setShowConfirmDeleteModal(true);
+        setShowDeleteModal(true);
     };
 
     const confirmDelete = async () => {
         if (deleteId === null) return;
+
         try {
             await axios.delete(`/api/porto/${deleteId}`);
+            setShowDeleteModal(false);
             fetchPortfolios();
-            setShowConfirmDeleteModal(false);
-            setDeleteId(null);
         } catch (error) {
             console.error('Gagal hapus data:', error);
         }
     };
 
-    const resetForm = () => {
-        setFormData({ link_video: '', judul: '', deskripsi: '' });
-        setFile(null);
-        setIsEditMode(false);
-        setEditingId(null);
-    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -123,8 +136,11 @@ export default function DataPortfolio() {
                 <div className="my-3">
                     <button
                         onClick={() => {
-                            resetForm();
+                            setIsEditMode(false);
+                            setEditingId(null);
                             setShowModal(true);
+                            setFormData({ link_video: '', judul: '', deskripsi: '' });
+                            setFile(null);
                         }}
                         className="bg-secondaryy cursor-pointer rounded-sm px-5 py-3 font-semibold text-white hover:bg-[#58A0C8]"
                     >
@@ -147,7 +163,7 @@ export default function DataPortfolio() {
                             <tr key={item.id} className="border-t">
                                 <td className="px-4 py-2">{index + 1}</td>
                                 <td className="px-4 py-2">
-                                    <a href={item.link_video} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                                    <a href={item.link_video} className="text-blue-500 underline" target="_blank" rel="noopener noreferrer">
                                         {item.link_video}
                                     </a>
                                 </td>
@@ -177,14 +193,10 @@ export default function DataPortfolio() {
                 </table>
             </div>
 
-            {/* Modal Tambah/Edit */}
             {showModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
                     <div className="relative w-full max-w-lg rounded-lg bg-white p-6 shadow-lg">
-                        <button
-                            onClick={() => setShowModal(false)}
-                            className="absolute top-3 right-3 text-xl font-bold text-gray-500 hover:text-red-600"
-                        >
+                        <button onClick={resetForm} className="absolute top-3 right-3 text-xl font-bold text-gray-500 hover:text-red-600">
                             &times;
                         </button>
                         <h2 className="mb-4 text-lg font-semibold">{isEditMode ? 'Edit Portfolio' : 'Tambah Portfolio'}</h2>
@@ -237,18 +249,24 @@ export default function DataPortfolio() {
                 </div>
             )}
 
-            {/* Modal Konfirmasi Hapus */}
-            {showConfirmDeleteModal && (
+            {showDeleteModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-                    <div className="rounded-lg bg-white p-6 shadow-xl">
-                        <h2 className="mb-4 text-lg font-semibold text-gray-800">Yakin ingin menghapus data ini?</h2>
-                        <div className="flex justify-end gap-2">
-                            <Button onClick={() => setShowConfirmDeleteModal(false)} variant="outline" className="hover:bg-gray-100">
+                    <div className="relative w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+                        <h2 className="mb-4 text-lg font-semibold text-red-600">Konfirmasi Hapus</h2>
+                        <p className="mb-6">Apakah kamu yakin ingin menghapus portfolio ini?</p>
+                        <div className="flex justify-end gap-3">
+                            <button
+                                onClick={() => setShowDeleteModal(false)}
+                                className="rounded bg-gray-300 px-4 py-2 text-sm font-semibold hover:bg-gray-400"
+                            >
                                 Batal
-                            </Button>
-                            <Button onClick={confirmDelete} className="bg-red-600 text-white hover:bg-red-500">
-                                Ya, Hapus
-                            </Button>
+                            </button>
+                            <button
+                                onClick={confirmDelete}
+                                className="rounded bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
+                            >
+                                Hapus
+                            </button>
                         </div>
                     </div>
                 </div>
