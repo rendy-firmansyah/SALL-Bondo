@@ -39,6 +39,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('data-feedback', function () {
         return Inertia::render('admin/Feedback');
     })->name('feedback-dashboard');
+    Route::get('data-portfolio-student', function () {
+        return Inertia::render('admin/DataPortfolio');
+    })->name('portfolio-dashboard');
 });
 
 require __DIR__.'/settings.php';
