@@ -7,6 +7,14 @@ Route::get('/', function () {
     return Inertia::render('home');
 })->name('home');
 
+Route::get('/portofolio', function () {
+    return Inertia::render('portofolio');
+})->name('portofolio');
+
+Route::get('/detail-portofolio', function () {
+    return Inertia::render('detailPortofolio');
+})->name('detailPortofolio');
+
 Route::get('/learning-reflection', function () {
     return Inertia::render('learning');
 })->name('learning');
