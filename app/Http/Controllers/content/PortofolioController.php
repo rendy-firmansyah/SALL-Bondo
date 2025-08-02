@@ -182,9 +182,16 @@ class PortofolioController extends Controller
             return response()->json(['message' => 'Portofolio not found.'], 404);
         }
 
+        // Hapus file dari storage jika ada
+        if ($portofolio->file_path && Storage::disk('public')->exists($portofolio->file_path)) {
+            Storage::disk('public')->delete($portofolio->file_path);
+        }
+
         $portofolio->delete();
+
         return response()->json(['message' => 'Portofolio berhasil dihapus.']);
     }
+
 
     /**
  * @OA\Put(
