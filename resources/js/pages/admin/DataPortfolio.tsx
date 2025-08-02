@@ -2,45 +2,50 @@ import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
+import axios from 'axios';
 import { PencilIcon, Trash } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Data Portfolio Student',
-        href: '/data-portfolio-student',
-    },
-];
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Data Portfolio Student', href: '/data-portfolio-student' }];
+
+interface PortfolioItem {
+    id: number;
+    judul: string;
+    deskripsi: string;
+    link_video: string;
+}
 
 export default function DataPortfolio() {
+    const [portfolios, setPortfolios] = useState<PortfolioItem[]>([]);
     const [showModal, setShowModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+    const [deleteId, setDeleteId] = useState<number | null>(null);
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [editingId, setEditingId] = useState<number | null>(null);
 
     const [formData, setFormData] = useState({
-        content: '',
-        title: '',
-        description: '',
+        link_video: '',
+        judul: '',
+        deskripsi: '',
     });
-
-    const [editFormData, setEditFormData] = useState({
-        content: '',
-        title: '',
-        description: '',
-    });
-
     const [file, setFile] = useState<File | null>(null);
-    const [editFile, setEditFile] = useState<File | null>(null);
-    const [selectedIdToDelete, setSelectedIdToDelete] = useState<number | null>(null);
+
+    useEffect(() => {
+        fetchPortfolios();
+    }, []);
+
+    const fetchPortfolios = async () => {
+        try {
+            const response = await axios.get('/api/porto');
+            setPortfolios(response.data);
+        } catch (error) {
+            console.error('Gagal ambil data:', error);
+        }
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setEditFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,80 +57,76 @@ export default function DataPortfolio() {
         }
     };
 
-    const handleEditFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const uploaded = e.target.files?.[0];
-        if (uploaded && isValidFile(uploaded)) {
-            setEditFile(uploaded);
-        } else {
-            alert('Hanya file .png, .jpg, .jpeg, atau .pdf yang diperbolehkan.');
-        }
-    };
-
-    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        const uploaded = e.dataTransfer.files[0];
-        if (uploaded && isValidFile(uploaded)) {
-            setFile(uploaded);
-        } else {
-            alert('Hanya file .png, .jpg, .jpeg, atau .pdf yang diperbolehkan.');
-        }
-    };
-
     const isValidFile = (file: File) => {
         return ['image/png', 'image/jpeg', 'application/pdf'].includes(file.type);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         const payload = new FormData();
-        payload.append('content', formData.content);
-        payload.append('title', formData.title);
-        payload.append('description', formData.description);
-        if (file) {
-            payload.append('file', file);
+        payload.append('link_video', formData.link_video);
+        payload.append('judul', formData.judul);
+        payload.append('deskripsi', formData.deskripsi);
+        if (file) payload.append('file', file);
+
+        try {
+            await axios.post('/api/porto', payload);
+            resetForm();
+            fetchPortfolios();
+        } catch (error) {
+            console.error('Gagal kirim data:', error);
         }
+    };
 
-        console.log('Form Data:', formData);
-        console.log('Uploaded File:', file);
+    const handleEditClick = async (id: number) => {
+        try {
+            const response = await axios.get(`/api/porto/${id}`);
+            const { judul, deskripsi, link_video } = response.data;
+            setFormData({ judul, deskripsi, link_video });
+            setIsEditMode(true);
+            setEditingId(id);
+            setShowModal(true);
+        } catch (error) {
+            console.error('Gagal fetch detail:', error);
+        }
+    };
 
-        setShowModal(false);
-        setFormData({ content: '', title: '', description: '' });
+    const handleDeleteClick = (id: number) => {
+        setDeleteId(id);
+        setShowConfirmDeleteModal(true);
+    };
+
+    const confirmDelete = async () => {
+        if (deleteId === null) return;
+        try {
+            await axios.delete(`/api/porto/${deleteId}`);
+            fetchPortfolios();
+            setShowConfirmDeleteModal(false);
+            setDeleteId(null);
+        } catch (error) {
+            console.error('Gagal hapus data:', error);
+        }
+    };
+
+    const resetForm = () => {
+        setFormData({ link_video: '', judul: '', deskripsi: '' });
         setFile(null);
-    };
-
-    const handleEditSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-
-        const payload = new FormData();
-        payload.append('content', editFormData.content);
-        payload.append('title', editFormData.title);
-        payload.append('description', editFormData.description);
-        if (editFile) {
-            payload.append('file', editFile);
-        }
-
-        console.log('Edit Form Data:', editFormData);
-        console.log('Edit Uploaded File:', editFile);
-
-        setShowEditModal(false);
-    };
-
-    const handleDelete = () => {
-        if (!selectedIdToDelete) return;
-        console.log('Deleting item with ID:', selectedIdToDelete);
-        setShowDeleteModal(false);
-        setSelectedIdToDelete(null);
+        setIsEditMode(false);
+        setEditingId(null);
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Learning Reflection Survey" />
+            <Head title="Data Portfolio Student" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="my-3">
                     <button
-                        onClick={() => setShowModal(true)}
-                        className="bg-secondaryy cursor-pointer rounded-sm px-5 py-3 font-semibold text-white transition-all ease-linear hover:bg-[#58A0C8]"
+                        onClick={() => {
+                            resetForm();
+                            setShowModal(true);
+                        }}
+                        className="bg-secondaryy cursor-pointer rounded-sm px-5 py-3 font-semibold text-white hover:bg-[#58A0C8]"
                     >
                         Tambah Portfolio
                     </button>
@@ -136,171 +137,122 @@ export default function DataPortfolio() {
                         <tr>
                             <th className="px-4 py-2">No</th>
                             <th className="px-4 py-2">Content</th>
-                            <th className="px-4 py-2">Judul Title</th>
-                            <th className="px-4 py-2">Deskripsi Title</th>
+                            <th className="px-4 py-2">Judul</th>
+                            <th className="px-4 py-2">Deskripsi</th>
                             <th className="px-4 py-2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className="border-t">
-                            <td className="px-4 py-2">1</td>
-                            <td className="px-4 py-2">Video.mp4</td>
-                            <td className="px-4 py-2">Judul Demo</td>
-                            <td className="px-4 py-2">Deskripsi singkat tentang demo</td>
-                            <td className="px-4 py-2">
-                                <Button
-                                    variant="outline"
-                                    className="me-2 bg-yellow-400 text-white transition-all ease-linear hover:bg-yellow-300 hover:text-white"
-                                    size="sm"
-                                    onClick={() => setShowEditModal(true)}
-                                >
-                                    <PencilIcon size={12} />
-                                </Button>
-                                <Button
-                                    variant="outline"
-                                    className="bg-red-500 text-white transition-all ease-linear hover:bg-red-400 hover:text-white"
-                                    size="sm"
-                                    onClick={() => {
-                                        setSelectedIdToDelete(1);
-                                        setShowDeleteModal(true);
-                                    }}
-                                >
-                                    <Trash size={12} />
-                                </Button>
-                            </td>
-                        </tr>
+                        {portfolios.map((item, index) => (
+                            <tr key={item.id} className="border-t">
+                                <td className="px-4 py-2">{index + 1}</td>
+                                <td className="px-4 py-2">
+                                    <a href={item.link_video} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                                        {item.link_video}
+                                    </a>
+                                </td>
+                                <td className="px-4 py-2">{item.judul}</td>
+                                <td className="px-4 py-2">{item.deskripsi}</td>
+                                <td className="px-4 py-2">
+                                    <Button
+                                        onClick={() => handleEditClick(item.id)}
+                                        variant="outline"
+                                        className="me-2 bg-yellow-400 text-white hover:bg-yellow-300"
+                                        size="sm"
+                                    >
+                                        <PencilIcon size={12} />
+                                    </Button>
+                                    <Button
+                                        onClick={() => handleDeleteClick(item.id)}
+                                        variant="outline"
+                                        className="bg-red-500 text-white hover:bg-red-400"
+                                        size="sm"
+                                    >
+                                        <Trash size={12} />
+                                    </Button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
 
+            {/* Modal Tambah/Edit */}
             {showModal && (
-                <PortfolioModal
-                    title="Tambah Portfolio"
-                    formData={formData}
-                    file={file}
-                    onClose={() => setShowModal(false)}
-                    onChange={handleInputChange}
-                    onFileChange={handleFileChange}
-                    onDrop={handleDrop}
-                    onSubmit={handleSubmit}
-                />
-            )}
-
-            {showEditModal && (
-                <PortfolioModal
-                    title="Edit Portfolio"
-                    formData={editFormData}
-                    file={editFile}
-                    onClose={() => setShowEditModal(false)}
-                    onChange={handleEditInputChange}
-                    onFileChange={handleEditFileChange}
-                    onDrop={handleDrop}
-                    onSubmit={handleEditSubmit}
-                />
-            )}
-
-            {showDeleteModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-                    <div className="relative w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+                    <div className="relative w-full max-w-lg rounded-lg bg-white p-6 shadow-lg">
                         <button
-                            onClick={() => setShowDeleteModal(false)}
+                            onClick={() => setShowModal(false)}
                             className="absolute top-3 right-3 text-xl font-bold text-gray-500 hover:text-red-600"
                         >
                             &times;
                         </button>
-                        <h2 className="mb-4 text-lg font-semibold text-gray-800">Konfirmasi Hapus</h2>
-                        <p className="mb-6 text-gray-600">Apakah kamu yakin ingin menghapus portfolio ini?</p>
+                        <h2 className="mb-4 text-lg font-semibold">{isEditMode ? 'Edit Portfolio' : 'Tambah Portfolio'}</h2>
+                        <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
+                            <div>
+                                <label className="block font-medium">Link Video</label>
+                                <input
+                                    type="text"
+                                    name="link_video"
+                                    value={formData.link_video}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="w-full rounded border p-2"
+                                    placeholder="URL Video"
+                                />
+                            </div>
+                            <div>
+                                <label className="mb-2 block font-medium">Upload File</label>
+                                <input type="file" accept=".png,.jpg,.jpeg,.pdf" onChange={handleFileChange} className="w-full" />
+                                {file && <p className="mt-2 text-sm">File terpilih: {file.name}</p>}
+                            </div>
+                            <div>
+                                <label className="block font-medium">Judul</label>
+                                <input
+                                    type="text"
+                                    name="judul"
+                                    value={formData.judul}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="w-full rounded border p-2"
+                                />
+                            </div>
+                            <div>
+                                <label className="block font-medium">Deskripsi</label>
+                                <textarea
+                                    name="deskripsi"
+                                    value={formData.deskripsi}
+                                    onChange={handleInputChange}
+                                    required
+                                    className="w-full rounded border p-2"
+                                />
+                            </div>
+                            <div className="text-right">
+                                <Button type="submit" className="bg-primaryy text-white hover:bg-blue-700">
+                                    {isEditMode ? 'Update' : 'Simpan'}
+                                </Button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
 
+            {/* Modal Konfirmasi Hapus */}
+            {showConfirmDeleteModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+                    <div className="rounded-lg bg-white p-6 shadow-xl">
+                        <h2 className="mb-4 text-lg font-semibold text-gray-800">Yakin ingin menghapus data ini?</h2>
                         <div className="flex justify-end gap-2">
-                            <Button
-                                variant="outline"
-                                className="border-gray-300 text-gray-700 hover:bg-gray-100"
-                                onClick={() => setShowDeleteModal(false)}
-                            >
+                            <Button onClick={() => setShowConfirmDeleteModal(false)} variant="outline" className="hover:bg-gray-100">
                                 Batal
                             </Button>
-                            <Button className="bg-red-500 text-white hover:bg-red-400" onClick={handleDelete}>
-                                Hapus
+                            <Button onClick={confirmDelete} className="bg-red-600 text-white hover:bg-red-500">
+                                Ya, Hapus
                             </Button>
                         </div>
                     </div>
                 </div>
             )}
         </AppLayout>
-    );
-}
-
-function PortfolioModal({ title, formData, file, onClose, onChange, onFileChange, onDrop, onSubmit }: any) {
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-            <div className="relative w-full max-w-lg rounded-lg bg-white p-6 shadow-lg">
-                <button onClick={onClose} className="absolute top-3 right-3 text-xl font-bold text-gray-500 hover:text-red-600">
-                    &times;
-                </button>
-                <h2 className="mb-4 text-lg font-semibold">{title}</h2>
-                <form onSubmit={onSubmit} className="space-y-4" encType="multipart/form-data">
-                    <div>
-                        <label className="block font-medium">Link Video (Jika mau upload video)</label>
-                        <input
-                            type="text"
-                            name="content"
-                            value={formData.content}
-                            onChange={onChange}
-                            required
-                            className="w-full rounded border p-2"
-                            placeholder="URL/Link Video"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="mb-2 block font-medium">Upload File (opsional)</label>
-                        <div
-                            className="flex h-32 w-full flex-col items-center justify-center rounded border-2 border-dashed border-gray-300 bg-gray-50 text-sm text-gray-500 hover:border-blue-400"
-                            onDragOver={(e) => e.preventDefault()}
-                            onDrop={onDrop}
-                        >
-                            <p className="font-semibold">Drop file here</p>
-                            <span className="text-xs">or</span>
-                            <label className="mt-1 cursor-pointer rounded border border-gray-300 bg-white px-3 py-1 shadow-sm hover:bg-gray-100">
-                                Browse
-                                <input type="file" className="hidden" accept=".png,.jpg,.jpeg,.pdf" onChange={onFileChange} />
-                            </label>
-                        </div>
-                        {file && <p className="mt-2 text-sm text-gray-600">File terpilih: {file.name}</p>}
-                    </div>
-
-                    <div>
-                        <label className="block font-medium">Judul Title</label>
-                        <input
-                            type="text"
-                            name="title"
-                            value={formData.title}
-                            onChange={onChange}
-                            required
-                            className="w-full rounded border p-2"
-                            placeholder="Judul"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block font-medium">Deskripsi Title</label>
-                        <textarea
-                            name="description"
-                            value={formData.description}
-                            onChange={onChange}
-                            required
-                            className="w-full rounded border p-2"
-                            placeholder="Deskripsi"
-                        />
-                    </div>
-
-                    <div className="text-right">
-                        <Button type="submit" className="bg-primaryy text-white hover:bg-blue-700">
-                            Simpan
-                        </Button>
-                    </div>
-                </form>
-            </div>
-        </div>
     );
 }
