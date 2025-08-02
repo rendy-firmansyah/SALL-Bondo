@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import axios from 'axios';
-import { PencilIcon, Trash } from 'lucide-react';
+import { Info, PencilIcon, Trash } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Data Portfolio Student', href: '/data-portfolio-student' }];
@@ -13,6 +13,8 @@ interface PortfolioItem {
     judul: string;
     deskripsi: string;
     link_video: string;
+    file_path?: string;
+    original_name?: string;
 }
 
 export default function DataPortfolio() {
@@ -22,7 +24,6 @@ export default function DataPortfolio() {
     const [editingId, setEditingId] = useState<number | null>(null);
     const [deleteId, setDeleteId] = useState<number | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-
 
     const [formData, setFormData] = useState({
         link_video: '',
@@ -51,6 +52,16 @@ export default function DataPortfolio() {
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const uploaded = e.target.files?.[0];
+        if (uploaded && isValidFile(uploaded)) {
+            setFile(uploaded);
+        } else {
+            alert('Hanya file .png, .jpg, .jpeg, atau .pdf yang diperbolehkan.');
+        }
+    };
+
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        const uploaded = e.dataTransfer.files[0];
         if (uploaded && isValidFile(uploaded)) {
             setFile(uploaded);
         } else {
@@ -128,7 +139,6 @@ export default function DataPortfolio() {
         }
     };
 
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Data Portfolio Student" />
@@ -162,11 +172,27 @@ export default function DataPortfolio() {
                         {portfolios.map((item, index) => (
                             <tr key={item.id} className="border-t">
                                 <td className="px-4 py-2">{index + 1}</td>
-                                <td className="px-4 py-2">
-                                    <a href={item.link_video} className="text-blue-500 underline" target="_blank" rel="noopener noreferrer">
-                                        {item.link_video}
-                                    </a>
+                                <td className="space-y-1 px-4 py-2">
+                                    {item.link_video && (
+                                        <a href={item.link_video} className="block text-blue-500 underline" target="_blank" rel="noopener noreferrer">
+                                            Link Video
+                                        </a>
+                                    )}
+
+                                    {item.file_path && (
+                                        <a
+                                            href={`/storage/${item.file_path}`}
+                                            className="block text-green-500 underline"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {item.original_name ?? 'Lihat File'}
+                                        </a>
+                                    )}
+
+                                    {!item.link_video && !item.file_path && <span className="text-gray-400 italic">Tidak ada file atau video</span>}
                                 </td>
+
                                 <td className="px-4 py-2">{item.judul}</td>
                                 <td className="px-4 py-2">{item.deskripsi}</td>
                                 <td className="px-4 py-2">
@@ -208,16 +234,32 @@ export default function DataPortfolio() {
                                     name="link_video"
                                     value={formData.link_video}
                                     onChange={handleInputChange}
-                                    required
                                     className="w-full rounded border p-2"
                                     placeholder="URL Video"
                                 />
                             </div>
+
                             <div>
                                 <label className="mb-2 block font-medium">Upload File</label>
-                                <input type="file" accept=".png,.jpg,.jpeg,.pdf" onChange={handleFileChange} className="w-full" />
-                                {file && <p className="mt-2 text-sm">File terpilih: {file.name}</p>}
+                                <div
+                                    className="flex h-32 w-full flex-col items-center justify-center rounded border-2 border-dashed border-gray-300 bg-gray-50 text-sm text-gray-500 hover:border-blue-400"
+                                    onDragOver={(e) => e.preventDefault()}
+                                    onDrop={handleDrop}
+                                >
+                                    <p className="font-semibold">Drop file here</p>
+                                    <span className="text-xs">or</span>
+                                    <label className="mt-1 cursor-pointer rounded border border-gray-300 bg-white px-3 py-1 shadow-sm hover:bg-gray-100">
+                                        Browse
+                                        <input type="file" className="hidden" accept=".png,.jpg,.jpeg,.pdf" onChange={handleFileChange} />
+                                    </label>
+                                    <p className="mt-2 flex items-center gap-2 font-medium">
+                                        {' '}
+                                        <Info size={14} /> Maksimal file hanya 5MB
+                                    </p>
+                                </div>
+                                {file && <p className="mt-2 text-sm text-gray-600">File terpilih: {file.name}</p>}
                             </div>
+
                             <div>
                                 <label className="block font-medium">Judul</label>
                                 <input
@@ -225,7 +267,6 @@ export default function DataPortfolio() {
                                     name="judul"
                                     value={formData.judul}
                                     onChange={handleInputChange}
-                                    required
                                     className="w-full rounded border p-2"
                                 />
                             </div>
@@ -235,7 +276,6 @@ export default function DataPortfolio() {
                                     name="deskripsi"
                                     value={formData.deskripsi}
                                     onChange={handleInputChange}
-                                    required
                                     className="w-full rounded border p-2"
                                 />
                             </div>
