@@ -46,7 +46,7 @@ export default function Home() {
                                 Welcome to <span className="text-primaryy font-logo">SALL-Bondo</span>
                             </h3>
                             <h1 className="my-4 text-center font-sans text-2xl font-bold md:text-start md:text-3xl">
-                                Your Gateway in English Learning through the Rich Culture of Situbondo
+                                SELF-ACCESS LANGUAGE LEARNING WITH CULTURAL TOUCH OF SITUBONDO
                             </h1>
                             <h3 className="mb-12 text-center font-sans text-lg md:text-start">
                                 SALL-BONDO is a self-access language learning platform which offers you with a safe-space to learn English
