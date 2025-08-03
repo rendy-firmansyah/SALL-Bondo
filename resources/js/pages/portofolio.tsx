@@ -49,10 +49,21 @@ export default function Portofolio() {
     const portoGambar = portofolio.filter((item) => !item.link_video);
     const portoVideo = portofolio.filter((item) => item.link_video);
 
-    const getYoutubeEmbedUrl = (url: string): string => {
-        const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/;
-        const match = url.match(regex);
-        return match ? `https://www.youtube.com/embed/${match[1]}` : url;
+    const getEmbedUrl = (url: string): string => {
+        // Cek apakah YouTube
+        const youtubeMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/);
+        if (youtubeMatch) {
+            return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+        }
+
+        // Cek apakah Google Drive
+        const driveMatch = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+        if (driveMatch) {
+            return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+        }
+
+        // Jika tidak cocok dua-duanya, kembalikan URL asli
+        return url;
     };
 
     return (
@@ -176,7 +187,7 @@ export default function Portofolio() {
                                                 <div className="mt-4 aspect-video">
                                                     <iframe
                                                         className="h-full w-full rounded-xl"
-                                                        src={getYoutubeEmbedUrl(item.link_video)}
+                                                        src={getEmbedUrl(item.link_video)}
                                                         title={item.judul}
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                         allowFullScreen

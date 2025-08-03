@@ -23,10 +23,21 @@ export default function DetailPortofolio({ porto }: Props) {
     const isPdf = porto.mime_type === 'application/pdf';
     console.log(porto);
 
-    const getYoutubeEmbedUrl = (url: string): string => {
-        const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/;
-        const match = url.match(regex);
-        return match ? `https://www.youtube.com/embed/${match[1]}` : url;
+    const getEmbedUrl = (url: string): string => {
+        // Cek apakah YouTube
+        const youtubeMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/);
+        if (youtubeMatch) {
+            return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+        }
+
+        // Cek apakah Google Drive
+        const driveMatch = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+        if (driveMatch) {
+            return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+        }
+
+        // Jika tidak cocok dua-duanya, kembalikan URL asli
+        return url;
     };
 
     return (
@@ -40,7 +51,7 @@ export default function DetailPortofolio({ porto }: Props) {
                             <div className="aspect-video w-full max-w-2xl">
                                 <iframe
                                     className="h-full w-full rounded-xl"
-                                    src={getYoutubeEmbedUrl(porto.link_video)}
+                                    src={getEmbedUrl(porto.link_video)}
                                     title={porto.judul}
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen
