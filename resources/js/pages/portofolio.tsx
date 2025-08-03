@@ -81,7 +81,17 @@ export default function Portofolio() {
                     <div className="mt-12 mb-8 h-[3px] w-auto bg-gray-300"></div>
                     <div className="mb-20">
                         {portofolio.length === 0 ? (
-                            <h1 className="text-center text-lg font-semibold text-gray-500">Tidak ada data portofolio.</h1>
+                            <div className="text-center">
+                                <h1 className="text-2xl font-semibold text-[#b6b6b6]">Tidak ada data portofolio.</h1>
+                                <div className="flex justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24">
+                                        <path
+                                            fill="#b6b6b6"
+                                            d="M17 3.34a10 10 0 1 1-14.995 8.984L2 12l.005-.324A10 10 0 0 1 17 3.34M15 14H9l-.117.007a1 1 0 0 0 0 1.986L9 16h6l.117-.007a1 1 0 0 0 0-1.986zM9.01 9l-.127.007a1 1 0 0 0 0 1.986L9 11l.127-.007a1 1 0 0 0 0-1.986zm6 0l-.127.007a1 1 0 0 0 0 1.986L15 11l.127-.007a1 1 0 0 0 0-1.986z"
+                                        />
+                                    </svg>
+                                </div>
+                            </div>
                         ) : (
                             <div className="grid grid-cols-1 justify-items-center gap-6 md:grid-cols-4">
                                 {portoGambar.map((item) => (
@@ -105,7 +115,11 @@ export default function Portofolio() {
                                         <h3 className="text-xl font-semibold">{item.judul}</h3>
 
                                         {/* Deskripsi */}
-                                        <p className="mt-2 text-[16px] text-gray-500">{item.deskripsi}</p>
+                                        <p className="mt-2 text-[16px] text-gray-500">
+                                            {item.deskripsi.split(' ').length > 20
+                                                ? item.deskripsi.split(' ').slice(0, 20).join(' ') + '...'
+                                                : 'Deskripsi terlalu singkat'}
+                                        </p>
                                         <div className="text-end">
                                             {isPdf(item.mime_type) ? (
                                                 // Jika PDF, buka file langsung
@@ -141,7 +155,17 @@ export default function Portofolio() {
                             </div>
                         </div>
                         {portofolio.length === 0 ? (
-                            <h1 className="text-center text-lg font-semibold text-gray-500">Tidak ada data portofolio.</h1>
+                            <div className="mb-20 text-center">
+                                <h1 className="text-2xl font-semibold text-[#b6b6b6]">Tidak ada data portofolio.</h1>
+                                <div className="flex justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24">
+                                        <path
+                                            fill="#b6b6b6"
+                                            d="M17 3.34a10 10 0 1 1-14.995 8.984L2 12l.005-.324A10 10 0 0 1 17 3.34M15 14H9l-.117.007a1 1 0 0 0 0 1.986L9 16h6l.117-.007a1 1 0 0 0 0-1.986zM9.01 9l-.127.007a1 1 0 0 0 0 1.986L9 11l.127-.007a1 1 0 0 0 0-1.986zm6 0l-.127.007a1 1 0 0 0 0 1.986L15 11l.127-.007a1 1 0 0 0 0-1.986z"
+                                        />
+                                    </svg>
+                                </div>
+                            </div>
                         ) : (
                             <div className="flex flex-col justify-center">
                                 <div ref={sliderRef} className="keen-slider">
@@ -160,7 +184,11 @@ export default function Portofolio() {
                                                 </div>
                                                 {/* Judul & Deskripsi */}
                                                 <h3 className="mt-2.5 text-center text-xl font-semibold">{item.judul}</h3>
-                                                <p className="text-center text-[16px] text-gray-500">{item.deskripsi}</p>
+                                                <p className="text-center text-[16px] text-gray-500">
+                                                    {item.deskripsi.split(' ').length > 20
+                                                        ? item.deskripsi.split(' ').slice(0, 20).join(' ') + '...'
+                                                        : 'Deskripsi terlalu singkat'}
+                                                </p>
                                                 <div className="text-end">
                                                     <a
                                                         href={route('detailPortofolio', { id: item.id })}

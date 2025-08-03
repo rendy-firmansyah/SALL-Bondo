@@ -194,7 +194,11 @@ export default function DataPortfolio() {
                                 </td>
 
                                 <td className="px-4 py-2">{item.judul}</td>
-                                <td className="px-4 py-2">{item.deskripsi}</td>
+                                <td className="w-[300px] px-4 py-2">
+                                    {item.deskripsi.split(' ').length > 20
+                                        ? item.deskripsi.split(' ').slice(0, 20).join(' ') + '...'
+                                        : 'Deskripsi terlalu singkat'}
+                                </td>
                                 <td className="px-4 py-2">
                                     <Button
                                         onClick={() => handleEditClick(item.id)}
