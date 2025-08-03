@@ -31,11 +31,10 @@ export default function Resources() {
                     {/* Teks */}
                     <div className="flex-1 text-center md:w-[50%] md:flex-none md:text-left">
                         <h1 className="mb-4 text-3xl font-bold md:text-5xl">
-                            Improve your English skills, <br /> starting here!
+                            Improve your English, <br /> Promote Yout Local Culture.
                         </h1>
                         <p className="text-justify text-2xl leading-relaxed text-gray-600">
-                            Access all learning materials in a flexible, interactive, and enjoyable way — designed to help you grow your English
-                            skills with confidence.
+                            Access all learning materials in a flexible, interactive, and enjoyable way.
                         </p>
                     </div>
                 </div>
