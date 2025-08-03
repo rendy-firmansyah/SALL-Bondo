@@ -32,7 +32,7 @@ export default function Home() {
             {/* Hero Section */}
             <section id="Hero" className="flex min-h-screen w-full">
                 <div className="mx-10 grid grid-cols-12 md:mx-20">
-                    <div className="col-span-12 flex items-center md:col-span-5">
+                    <div className="col-span-12 flex items-center md:col-span-7">
                         <div>
                             <h3 className="text-tertiaryy flex items-center gap-2 text-lg md:text-2xl">
                                 <span>
@@ -45,20 +45,23 @@ export default function Home() {
                                 </span>
                                 Welcome to <span className="text-primaryy font-logo">SALL-Bondo</span>
                             </h3>
-                            <h1 className="my-4 text-center font-sans text-3xl font-bold md:text-start md:text-5xl">
-                                Explore English with Situbondo's Culture
+                            <h1 className="my-4 text-center font-sans text-2xl font-bold md:text-start md:text-3xl">
+                                Your Gateway in English Learning through the Rich Culture of Situbondo
                             </h1>
-                            <h3 className="mb-12 text-center font-sans text-lg md:text-start md:text-2xl">
-                                SALL-BONDO is a flexible self-learning platform to study English through Situbondo's culture
+                            <h3 className="mb-12 text-center font-sans text-lg md:text-start">
+                                SALL-BONDO is a self-access language learning platform which offers you with a safe-space to learn English
+                                independently at your own pace and develop your literacy with the authentic cultural heritage of Situbondo. It is
+                                designed for learners with beginner to intermediate level. In this platform, you can explore various engaging,
+                                interactive and contextual materials that will support your English learning journey.
                             </h3>
                             <div className="text-center md:text-start">
-                                <Link href="" className="bg-primaryy rounded-lg px-5 py-2.5 font-sans text-white">
+                                <Link href={route('resources')} className="bg-primaryy rounded-lg px-5 py-2.5 font-sans text-white">
                                     Let's start our exploration
                                 </Link>
                             </div>
                         </div>
                     </div>
-                    <div className="hidden justify-end md:col-span-7 md:flex md:items-center">
+                    <div className="hidden justify-end md:col-span-5 md:flex md:items-center">
                         <img src={HeroImage} alt="Bima" className="h-[504px] w-[466px]" />
                     </div>
                 </div>
@@ -74,8 +77,8 @@ export default function Home() {
             </div>
 
             {/* About Section */}
-            <section id="About" className="flex min-h-screen w-full">
-                <div className="relative h-screen w-full bg-[#F2FAFF] px-8 md:px-20">
+            <section id="About" className="flex w-full">
+                <div className="relative w-full bg-[#F2FAFF] px-8 md:px-20">
                     <div className="">
                         <div className="grid grid-cols-12">
                             <div className="col-span-12 hidden h-screen items-center justify-center md:col-span-5 md:flex">
@@ -100,13 +103,18 @@ export default function Home() {
                                         Your Gateway in English Learning through the Rich Culture of Situbondo
                                     </h2>
                                     <p className="font-sans text-base md:text-lg">
-                                        SALL-BONDO is a self-access English learning platform developed through the 2025 DPPM Kemendikbudristek grant
-                                        titled “Penguatan Kapasitas Bahasa Inggris dan Literasi Budaya melalui Penciptaan Motif Batik Kontemporer
-                                        Berbasis Kearifan Lokal Tapal Kuda.”, in collaboration with Forum Pemuda Pelopor Situbondo. It aims to enhance
-                                        English proficiency and cultural literacy through flexible online and offline learning, including the creation
-                                        of contemporary batik motifs inspired by local wisdom. Managed by Ika Fitriani and Chandra Ayu Proborini
-                                        (Universitas Jember), and Diana Setia Dewi (ITB Tuban), the program empowers Situbondo's youth by integrating
-                                        language, culture, and creativity.
+                                        SALL-BONDO is a self-access language learning platform developed as part of the Program Pengabdian Kepada
+                                        Masyarakat, particularly on the scheme Pemberdayaan Berbasis Masyarakat in collaboration with Forum Pemuda
+                                        Pelopor Kabupaten Situbondo with the title “Penguatan Kapasitas Bahasa Inggris dan Literasi Budaya Melalui
+                                        Program Pendampingan Penciptaan Motif Batik Kontemporer Berbasis Kearifan Lokal Budaya Daerah Tapal Kuda”.
+                                        This program is funded by the Hibah DPPM Kemendiktisaintek 2025 which aimed at improving participants' English
+                                        language skills and cultural literacy of Situbondo. It serves as a flexible learning platform that combines
+                                        online and offline activities. Participants will engage in language learning in synchronous and asynchronous
+                                        learning mode, have hands-on activity in exploring and developing contemporary batik motifs inspired by local
+                                        culture, encourage community empowerment. This program and learning product are managed by Ika Fitriani
+                                        (Universitas Jember), Chandra Ayu Proborini (Universitas Jember), Diana Setia Dewi (Institut Teknologi dan
+                                        Bisnis Tuban) who are committed to provide an accessible learning space where language, culture, and
+                                        creativity come together to empower local youth communities.
                                     </p>
                                 </div>
                             </div>
@@ -242,7 +250,7 @@ export default function Home() {
                                     <img src={TopicImage} alt="Topic" className="h-[60px] w-[60px]" />
                                 </div>
                                 <h2 className="font-sans text-xl">
-                                    Choose the topic that are interesting for you. You can learn in any order and at your own pace.
+                                    Choose the topics that are interesting for you. You can learn in any order and at your own pace.
                                 </h2>
                             </div>
                             <div className="flex h-[90px] w-[1000px] items-center justify-end gap-4 rounded-2xl border-2 border-gray-300 bg-white px-8">

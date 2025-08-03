@@ -27,13 +27,13 @@ export default function Navbar() {
                             </a>
                         </li>
                         <li>
-                            <a href={route('portofolio')} className="hover:text-[#34699A]">
-                                Portofolio
+                            <a href={route('resources')} className="hover:text-[#34699A]">
+                                Resources
                             </a>
                         </li>
                         <li>
-                            <a href={route('resources')} className="hover:text-[#34699A]">
-                                Resource
+                            <a href={route('portofolio')} className="hover:text-[#34699A]">
+                                Portfolio
                             </a>
                         </li>
                         <li>
@@ -76,11 +76,11 @@ export default function Navbar() {
                     <a href={route('home')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
                         Home
                     </a>
-                    <a href={route('portofolio')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
-                        Portofolio
-                    </a>
                     <a href={route('resources')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
-                        Resource
+                        Resources
+                    </a>
+                    <a href={route('portofolio')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
+                        Portfolio
                     </a>
                     <a href={route('learning')} className="hover:text-[#34699A]" onClick={() => setMenuOpen(false)}>
                         Learning Reflection

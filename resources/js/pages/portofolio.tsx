@@ -71,7 +71,7 @@ export default function Portofolio() {
                                         />
                                     </svg>
                                 </span>
-                                Portofolio Student's
+                                Students' Portfolio
                             </h1>
                             <p className="mt-5 w-auto text-center text-xl md:w-[790px]">
                                 A collection of student works showcasing their English learning through the culture of Situbondo
@@ -82,7 +82,7 @@ export default function Portofolio() {
                     <div className="mb-20">
                         {portofolio.length === 0 ? (
                             <div className="text-center">
-                                <h1 className="text-2xl font-semibold text-[#b6b6b6]">Tidak ada data portofolio.</h1>
+                                <h1 className="text-2xl font-semibold text-[#b6b6b6]">Oops! No portfolio found just yet.</h1>
                                 <div className="flex justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24">
                                         <path
@@ -147,7 +147,7 @@ export default function Portofolio() {
                         <div className="flex justify-center">
                             <div>
                                 <h1 className="flex items-center justify-center gap-2 font-sans text-2xl font-semibold md:text-4xl">
-                                    Video Portfolio
+                                    Videos Portfolio
                                 </h1>
                                 <p className="mt-5 mb-8 w-auto text-center text-xl md:w-[790px]">
                                     Creative student videos that celebrate Situbondo's culture in English
@@ -156,7 +156,7 @@ export default function Portofolio() {
                         </div>
                         {portofolio.length === 0 ? (
                             <div className="mb-20 text-center">
-                                <h1 className="text-2xl font-semibold text-[#b6b6b6]">Tidak ada data portofolio.</h1>
+                                <h1 className="text-2xl font-semibold text-[#b6b6b6]">Oops! No portfolio found just yet.</h1>
                                 <div className="flex justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24">
                                         <path
