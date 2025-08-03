@@ -57,7 +57,7 @@ class PortofolioController extends Controller
     {
         $validated = Validator::make($request->all(), [
             'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
             'link_video' => 'nullable|url|max:255',
             'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);
@@ -182,9 +182,16 @@ class PortofolioController extends Controller
             return response()->json(['message' => 'Portofolio not found.'], 404);
         }
 
+        // Hapus file dari storage jika ada
+        if ($portofolio->file_path && Storage::disk('public')->exists($portofolio->file_path)) {
+            Storage::disk('public')->delete($portofolio->file_path);
+        }
+
         $portofolio->delete();
+
         return response()->json(['message' => 'Portofolio berhasil dihapus.']);
     }
+
 
     /**
  * @OA\Put(
@@ -242,7 +249,7 @@ class PortofolioController extends Controller
 
         $validated = Validator::make($request->all(), [
             'judul' => 'sometimes|required|string|max:255',
-            'deskripsi' => 'sometimes|required|string|max:255',
+            'deskripsi' => 'sometimes|required|string',
             'link_video' => 'nullable|url|max:255',
             'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);
