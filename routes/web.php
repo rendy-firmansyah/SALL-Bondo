@@ -1,11 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Portofolio;
 use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('home');
 })->name('home');
+
+Route::get('/portofolio', function () {
+    return Inertia::render('portofolio');
+})->name('portofolio');
+
+Route::get('/detail-portofolio/{id}', function ($id) {
+    $porto = Portofolio::findOrFail($id); // Ambil data dari model
+
+    return Inertia::render('detailPortofolio', [ // Kirim ke komponen React
+        'porto' => $porto,
+    ]);
+})->name('detailPortofolio');
 
 Route::get('/learning-reflection', function () {
     return Inertia::render('learning');

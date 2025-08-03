@@ -57,7 +57,7 @@ class PortofolioController extends Controller
     {
         $validated = Validator::make($request->all(), [
             'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
             'link_video' => 'nullable|url|max:255',
             'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);
@@ -249,7 +249,7 @@ class PortofolioController extends Controller
 
         $validated = Validator::make($request->all(), [
             'judul' => 'sometimes|required|string|max:255',
-            'deskripsi' => 'sometimes|required|string|max:255',
+            'deskripsi' => 'sometimes|required|string',
             'link_video' => 'nullable|url|max:255',
             'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);

@@ -31,11 +31,10 @@ export default function Resources() {
                     {/* Teks */}
                     <div className="flex-1 text-center md:w-[50%] md:flex-none md:text-left">
                         <h1 className="mb-4 text-3xl font-bold md:text-5xl">
-                            Improve your English skills, <br /> starting here!
+                            Improve your English, <br /> Promote Yout Local Culture.
                         </h1>
                         <p className="text-justify text-2xl leading-relaxed text-gray-600">
-                            Access all learning materials in a flexible, interactive, and enjoyable way — designed to help you grow your English
-                            skills with confidence.
+                            Access all learning materials in a flexible, interactive, and enjoyable way.
                         </p>
                     </div>
                 </div>
@@ -43,7 +42,7 @@ export default function Resources() {
 
             {/* List of Modules */}
             <section className="container mx-auto mt-16 px-4">
-                <h2 className="mb-10 ps-0 md:ps-14 text-4xl font-bold text-center md:text-left">List of Learning Modules (SALL Resources)</h2>
+                <h2 className="mb-10 ps-0 text-center text-4xl font-bold md:ps-14 md:text-left">List of Learning Modules (SALL Resources)</h2>
 
                 <div className="grid grid-cols-1 justify-items-center gap-x-0 gap-y-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {modules.map((module, idx) => (
@@ -52,7 +51,7 @@ export default function Resources() {
                             <img src={LogoModul} alt={`Learning Modul ${module.title}`} className="mb-5 h-36 w-44 object-contain" />
 
                             {/* Judul */}
-                            <h3 className="text-center text-2xl font-semibold">Learning Modul</h3>
+                            <h3 className="text-center text-2xl font-semibold">Learning Module</h3>
 
                             {/* Subtitle (Chapter 1, Chapter 2, dst) */}
                             <p className="text-center text-xl text-gray-500">{module.title}</p>
