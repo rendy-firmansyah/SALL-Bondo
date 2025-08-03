@@ -15,22 +15,27 @@ export default function Footer() {
                     <div className="mt-8 md:mt-16">
                         <ul className="flex flex-wrap justify-center gap-6 font-medium text-white md:justify-start md:gap-10">
                             <li>
-                                <a href="#home" className="hover:text-secondaryy">
+                                <a href={route('home')} className="hover:text-secondaryy">
                                     Home
                                 </a>
                             </li>
                             <li>
-                                <a href="#resource" className="hover:text-secondaryy">
-                                    Resource
+                                <a href={route('resources')} className="hover:text-secondaryy">
+                                    Resources
                                 </a>
                             </li>
                             <li>
-                                <a href="#learning-reflection" className="hover:text-secondaryy">
+                                <a href={route('portofolio')} className="hover:text-secondaryy">
+                                    Portfolio
+                                </a>
+                            </li>
+                            <li>
+                                <a href={route('learning')} className="hover:text-secondaryy">
                                     Learning Reflection
                                 </a>
                             </li>
                             <li>
-                                <a href="#feedback" className="hover:text-secondaryy">
+                                <a href={route('feedback')} className="hover:text-secondaryy">
                                     Feedback
                                 </a>
                             </li>
