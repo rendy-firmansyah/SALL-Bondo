@@ -450,7 +450,7 @@ export default function Home() {
                                     <img src={DianaImage} alt="Diana" className="h-[330px] w-[330px]" />
                                     <div className="flex flex-col text-center">
                                         <h1 className="text-2xl font-semibold">Diana Setia Dewi</h1>
-                                        <h3>Universitas Jember</h3>
+                                        <h3>Institut Teknologi dan Bisnis Tuban</h3>
                                     </div>
                                 </div>
                             </div>

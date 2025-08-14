@@ -16,6 +16,10 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
+        if (typeof window !== 'undefined' && window.AOS) {
+            window.AOS.init({ duration: 1000, once: true });
+        }
+
         root.render(
             <>
                 <App {...props} />
