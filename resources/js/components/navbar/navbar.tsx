@@ -13,14 +13,14 @@ export default function Navbar() {
                     <div className="font-logo text-2xl font-bold text-[#113F67]">SALL-Bondo</div>
 
                     {/* Hamburger (mobile only) */}
-                    <div className="md:hidden">
+                    <div className="md:block lg:hidden">
                         <button onClick={() => setMenuOpen(true)} aria-label="Open Menu">
                             <Menu size={24} />
                         </button>
                     </div>
 
                     {/* Desktop Navigation */}
-                    <ul className="hidden items-center gap-10 font-medium text-gray-700 md:flex">
+                    <ul className="hidden items-center gap-10 font-medium text-gray-700 md:hidden lg:flex">
                         <li>
                             <a href={route('home')} className="hover:text-[#34699A]">
                                 Home
@@ -51,7 +51,7 @@ export default function Navbar() {
                     {/* Desktop Login Button */}
                     <Link
                         href={route('login')}
-                        className="hidden rounded-sm bg-[#113F67] px-6 py-1.5 font-medium text-white hover:bg-[#34699A] md:block"
+                        className="hidden rounded-sm bg-[#113F67] px-6 py-1.5 font-medium text-white hover:bg-[#34699A] md:hidden lg:block"
                     >
                         Login
                     </Link>
@@ -59,13 +59,13 @@ export default function Navbar() {
             </nav>
 
             {/* Overlay when mobile menu is open */}
-            {menuOpen && <div className="fixed inset-0 z-40 bg-gray-700 opacity-40 md:hidden" onClick={() => setMenuOpen(false)} />}
+            {menuOpen && <div className="fixed inset-0 z-40 bg-gray-700 opacity-40 md:fixed lg:hidden" onClick={() => setMenuOpen(false)} />}
 
             {/* Sidebar Menu (mobile only) */}
             <div
                 className={`fixed top-0 right-0 z-50 h-full w-64 transform bg-white shadow-lg transition-transform duration-300 ease-in-out ${
                     menuOpen ? 'translate-x-0' : 'translate-x-full'
-                } md:hidden`}
+                } lg:hidden`}
             >
                 <div className="flex justify-end p-4">
                     <button onClick={() => setMenuOpen(false)} aria-label="Close Menu">

@@ -77,7 +77,7 @@ export default function Feedback() {
             <Navbar />
             {showStats ? (
                 <section className="">
-                    <div className="flex min-h-screen flex-col items-center justify-center">
+                    <div className="flex flex-col items-center justify-center">
                         <h2 className="mt-10 text-center text-4xl font-bold">✨ We value your opinion!</h2>
                         <div className="mx-0 my-20 grid grid-cols-1 gap-10 text-xl md:mx-30 md:gap-30 lg:grid-cols-2">
                             {/* Learning Materials */}
@@ -128,7 +128,7 @@ export default function Feedback() {
                 </section>
             ) : (
                 <section>
-                    <div className="flex min-h-screen items-center justify-center px-0 md:px-4">
+                    <div className="mt-10 flex items-center justify-center px-0 md:px-4">
                         <form onSubmit={handleSubmit} className="w-3/4 rounded-lg px-2 py-8 md:p-8">
                             <h2 className="my-10 text-center text-3xl font-bold md:mt-0 md:mb-15 md:text-4xl">
                                 Please complete this short survey <br />
@@ -172,7 +172,7 @@ export default function Feedback() {
                             <div className="my-15 text-center">
                                 <button
                                     type="submit"
-                                    className="rounded bg-[#173F63] px-8 py-2 font-semibold text-white shadow transition hover:bg-[#135085] md:px-80"
+                                    className="rounded bg-[#173F63] px-8 py-2 font-semibold text-white shadow transition hover:bg-[#135085] md:px-40 lg:px-80"
                                 >
                                     Simpan
                                 </button>
