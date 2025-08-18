@@ -44,7 +44,7 @@ export default function Resources() {
             <section className="container mx-auto mt-16 px-4">
                 <h2 className="mb-10 ps-0 text-center text-4xl font-bold md:ps-14 md:text-left">List of Learning Modules (SALL Resources)</h2>
 
-                <div className="grid grid-cols-1 justify-items-center gap-x-0 gap-y-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div className="grid grid-cols-1 justify-items-center gap-x-0 gap-y-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {modules.map((module, idx) => (
                         <div key={idx} className="flex flex-col items-center rounded-3xl border-2 border-gray-300 bg-white p-10 shadow-xl">
                             {/* Logo Modul */}

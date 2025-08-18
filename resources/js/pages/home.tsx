@@ -32,7 +32,7 @@ export default function Home() {
             {/* Hero Section */}
             <section id="Hero" className="flex min-h-screen w-full">
                 <div className="mx-10 grid grid-cols-12 md:mx-20">
-                    <div className="col-span-12 flex items-center md:col-span-7">
+                    <div className="col-span-12 flex items-center md:col-span-12 lg:col-span-7">
                         <div>
                             <h3 className="text-tertiaryy flex items-center gap-2 text-lg md:text-2xl">
                                 <span>
@@ -45,29 +45,29 @@ export default function Home() {
                                 </span>
                                 Welcome to <span className="text-primaryy font-logo">SALL-Bondo</span>
                             </h3>
-                            <h1 className="my-4 text-center font-sans text-2xl font-bold md:text-start md:text-3xl">
+                            <h1 className="my-4 text-center font-sans text-2xl font-bold md:text-center lg:text-start lg:text-3xl">
                                 SELF-ACCESS LANGUAGE LEARNING WITH CULTURAL TOUCH OF SITUBONDO
                             </h1>
-                            <h3 className="mb-12 text-center font-sans text-lg md:text-start">
+                            <h3 className="mb-12 text-center font-sans text-lg md:text-center lg:text-start">
                                 SALL-BONDO is a self-access language learning platform which offers you with a safe-space to learn English
                                 independently at your own pace and develop your literacy with the authentic cultural heritage of Situbondo. It is
                                 designed for learners with beginner to intermediate level. In this platform, you can explore various engaging,
                                 interactive and contextual materials that will support your English learning journey.
                             </h3>
-                            <div className="text-center md:text-start">
+                            <div className="text-center md:text-center lg:text-start">
                                 <Link href={route('resources')} className="bg-primaryy rounded-lg px-5 py-2.5 font-sans text-white">
                                     Let's start our exploration
                                 </Link>
                             </div>
                         </div>
                     </div>
-                    <div className="hidden justify-end md:col-span-5 md:flex md:items-center">
+                    <div className="hidden justify-end md:hidden md:items-center lg:col-span-5 lg:flex">
                         <img src={HeroImage} alt="Bima" className="h-[504px] w-[466px]" />
                     </div>
                 </div>
             </section>
-            <div className="mb-14 overflow-x-auto md:overflow-visible">
-                <div className="flex w-max snap-x snap-mandatory gap-10 px-4 transition-transform duration-500 ease-in-out md:w-full md:justify-center">
+            <div className="mb-14 overflow-x-auto">
+                <div className="flex w-max snap-x snap-mandatory gap-10 px-4 transition-transform duration-500 ease-in-out md:w-full lg:w-full lg:justify-center">
                     <img src={BimaImage} alt="Bima" className="h-[111px] w-[369px]" />
                     <img src={TutWuriImage} alt="TutWuri" className="h-[111px] w-[111px]" />
                     <img src={T3Image} alt="T3" className="h-[111px] w-[111px]" />
@@ -78,15 +78,15 @@ export default function Home() {
 
             {/* About Section */}
             <section id="About" className="flex w-full">
-                <div className="relative w-full bg-[#F2FAFF] px-8 md:px-20">
+                <div className="relative w-full bg-[#F2FAFF] px-8 md:px-8 lg:px-20 lg:py-20">
                     <div className="">
                         <div className="grid grid-cols-12">
-                            <div className="col-span-12 hidden h-screen items-center justify-center md:col-span-5 md:flex">
+                            <div className="col-span-12 hidden h-screen items-center justify-center md:hidden lg:col-span-5 lg:flex">
                                 <img src={AboutImage} alt="About" className="h-[345px] w-[403px]" />
                             </div>
-                            <div className="col-span-12 flex items-center py-15 md:col-span-7 md:py-0">
-                                <div className="text-center md:text-start">
-                                    <div className="flex justify-center md:justify-start">
+                            <div className="col-span-12 flex items-center py-15 md:py-15 lg:col-span-7 lg:py-0">
+                                <div className="text-center md:text-center lg:text-start">
+                                    <div className="flex justify-center md:justify-center lg:justify-start">
                                         <h3 className="text-tertiaryy flex items-center gap-2 font-sans text-xl">
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -99,10 +99,10 @@ export default function Home() {
                                             About Us
                                         </h3>
                                     </div>
-                                    <h2 className="my-5 font-sans text-2xl font-bold md:text-4xl">
+                                    <h2 className="my-5 font-sans text-2xl font-bold md:text-2xl lg:text-4xl">
                                         Your Gateway in English Learning through the Rich Culture of Situbondo
                                     </h2>
-                                    <p className="font-sans text-base md:text-lg">
+                                    <p className="font-sans text-base md:text-base lg:text-lg">
                                         SALL-BONDO is a self-access language learning platform developed as part of the Program Pengabdian Kepada
                                         Masyarakat, particularly on the scheme Pemberdayaan Berbasis Masyarakat in collaboration with Forum Pemuda
                                         Pelopor Kabupaten Situbondo with the title “Penguatan Kapasitas Bahasa Inggris dan Literasi Budaya Melalui
@@ -124,12 +124,12 @@ export default function Home() {
             </section>
 
             {/* Do Section */}
-            <section className="mt-20 flex min-h-screen w-full">
+            <section className="mt-20 flex w-full">
                 <div className="w-full">
                     <div className="flex flex-col justify-center">
                         <div className="flex flex-col justify-center">
                             <div className="flex justify-center">
-                                <h3 className="text-tertiaryy flex items-center gap-2 font-sans text-2xl md:text-4xl">
+                                <h3 className="text-tertiaryy flex items-center gap-2 font-sans text-2xl md:text-2xl lg:text-4xl">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                             <path
@@ -142,13 +142,13 @@ export default function Home() {
                                 </h3>
                             </div>
                             <div className="flex justify-center">
-                                <h3 className="mt-5 mb-20 w-[600px] text-center font-sans text-lg font-semibold md:text-2xl">
+                                <h3 className="mt-5 mb-20 w-[600px] text-center font-sans text-lg font-semibold md:text-lg lg:text-2xl">
                                     "Lifelong learning is critical to success. We upskill to get better at what we do."
                                 </h3>
                             </div>
                         </div>
                         <div className="mx-auto max-w-6xl">
-                            <div className="mb-20 grid grid-cols-1 gap-6 md:mb-0 md:grid-cols-2">
+                            <div className="mb-20 grid grid-cols-1 gap-6 md:mb-20 md:grid-cols-1 lg:mb-20 lg:grid-cols-2">
                                 <div className="flex h-[180px] w-[370px] items-center justify-center rounded-xl bg-[#F6F6F6] md:h-[210px] md:w-[400px]">
                                     <div className="text-center">
                                         <div className="mb-2.5 flex justify-center">
@@ -192,14 +192,16 @@ export default function Home() {
             </section>
 
             {/* Access Section */}
-            <section className="flex min-h-screen w-full">
-                <div className="relative h-[1200px] w-full bg-[#F2FAFF] px-10 py-20 md:h-[850px] md:px-20">
+            <section className="flex w-full">
+                <div className="relative w-full bg-[#F2FAFF] px-10 py-20 md:px-10 lg:px-20">
                     <div className="flex justify-center">
-                        <h1 className="text-center font-sans text-2xl font-semibold md:text-start md:text-4xl">How to Access Your SALL-BONDO?</h1>
+                        <h1 className="text-center font-sans text-2xl font-semibold md:text-center md:text-2xl lg:text-start lg:text-4xl">
+                            How to Access Your SALL-BONDO?
+                        </h1>
                     </div>
-                    <div className="my-10 flex justify-center md:my-20">
+                    <div className="my-10 flex justify-center md:my-10 lg:my-20">
                         {/* md */}
-                        <div className="hidden flex-col gap-y-5 md:flex">
+                        <div className="hidden flex-col gap-y-5 md:hidden lg:flex">
                             <div className="flex h-[90px] w-[1000px] items-center gap-4 rounded-2xl border-2 border-gray-300 bg-white px-8">
                                 <div className="flex h-[60px] w-[60px] items-center justify-center rounded-full bg-[#F6F6F6]">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
@@ -295,7 +297,7 @@ export default function Home() {
                         </div>
 
                         {/* sm */}
-                        <div className="flex flex-col gap-y-4 md:hidden">
+                        <div className="flex flex-col gap-y-4 md:flex lg:hidden">
                             <div className="flex h-[100px] w-[370px] flex-col justify-center gap-y-2 rounded-2xl border-2 border-gray-300 bg-white px-8">
                                 <div className="flex justify-center gap-4">
                                     <div className="flex h-[40px] w-[40px] items-center justify-center rounded-full bg-[#F6F6F6]">
@@ -414,11 +416,11 @@ export default function Home() {
             </section>
 
             {/* Team Section */}
-            <section className="mt-20 flex min-h-screen w-full">
+            <section className="mt-20 flex w-full">
                 <div className="flex w-full justify-center">
                     <div>
                         <div className="flex justify-center">
-                            <h1 className="flex items-center gap-2 font-sans text-3xl font-semibold md:text-4xl">
+                            <h1 className="flex items-center gap-2 font-sans text-3xl font-semibold md:text-3xl lg:text-4xl">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                         <path
@@ -430,8 +432,8 @@ export default function Home() {
                                 Our Team
                             </h1>
                         </div>
-                        <div className="mt-20 mb-16 md:mb-0">
-                            <div className="flex flex-wrap justify-center gap-10 md:justify-normal">
+                        <div className="mt-20 mb-16">
+                            <div className="flex flex-wrap justify-center gap-10 md:justify-center lg:justify-normal">
                                 <div className="flex flex-col gap-y-5">
                                     <img src={IkaImage} alt="Ika" className="h-[330px] w-[330px]" />
                                     <div className="flex flex-col text-center">
@@ -460,7 +462,7 @@ export default function Home() {
             </section>
 
             {/* Collage Section */}
-            <section className="flex min-h-screen w-full">
+            <section className="flex w-full">
                 <div className="relative h-auto w-full bg-[#F2FAFF] px-10 py-20 md:px-20">
                     <div className="flex w-full justify-center">
                         <div>
