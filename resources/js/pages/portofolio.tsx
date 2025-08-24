@@ -21,17 +21,60 @@ type Portofolio = {
 export default function Portofolio() {
     const [portofolio, setPortofolio] = useState<Portofolio[]>([]);
     const [currentSlide, setCurrentSlide] = useState(0);
-    const [sliderRef, sliderInstanceRef] = useKeenSlider<HTMLDivElement>({
-        loop: true,
-        mode: 'snap',
-        slides: {
-            perView: 1,
-            spacing: 15,
+    const [sliderRef, sliderInstanceRef] = useKeenSlider<HTMLDivElement>(
+        {
+            loop: true,
+            mode: 'snap',
+            slides: {
+                perView: 1, // default mobile
+                spacing: 15,
+            },
+            breakpoints: {
+                '(min-width: 768px)': {
+                    slides: { perView: 2, spacing: 15 }, // tablet
+                },
+                '(min-width: 1024px)': {
+                    slides: { perView: 3, spacing: 15 }, // desktop
+                },
+            },
+            slideChanged(slider) {
+                setCurrentSlide(slider.track.details.rel);
+            },
         },
-        slideChanged(slider) {
-            setCurrentSlide(slider.track.details.rel);
-        },
-    });
+        [
+            // plugin autoplay
+            (slider) => {
+                let timeout: ReturnType<typeof setTimeout>;
+                let mouseOver = false;
+
+                function clearNextTimeout() {
+                    clearTimeout(timeout);
+                }
+                function nextTimeout() {
+                    clearTimeout(timeout);
+                    if (mouseOver) return;
+                    timeout = setTimeout(() => {
+                        slider.next();
+                    }, 3000); // ganti 3000 → 3 detik, bisa kamu atur
+                }
+
+                slider.on('created', () => {
+                    slider.container.addEventListener('mouseover', () => {
+                        mouseOver = true;
+                        clearNextTimeout();
+                    });
+                    slider.container.addEventListener('mouseout', () => {
+                        mouseOver = false;
+                        nextTimeout();
+                    });
+                    nextTimeout();
+                });
+                slider.on('dragStarted', clearNextTimeout);
+                slider.on('animationEnded', nextTimeout);
+                slider.on('updated', nextTimeout);
+            },
+        ],
+    );
 
     const fetchData = async () => {
         const response = await axios.get('/api/porto?id=');
