@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Portofolio;
+use App\Models\portofolio;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -13,7 +13,7 @@ Route::get('/portofolio', function () {
 })->name('portofolio');
 
 Route::get('/detail-portofolio/{id}', function ($id) {
-    $porto = Portofolio::findOrFail($id); // Ambil data dari model
+    $porto = portofolio::findOrFail($id); // Ambil data dari model
 
     return Inertia::render('detailPortofolio', [ // Kirim ke komponen React
         'porto' => $porto,
