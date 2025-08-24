@@ -76,8 +76,15 @@ export default function DataPortfolio() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        // Normalisasi link video jika Google Drive
+        let link_video = formData.link_video.trim();
+        const driveMatch = link_video.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+        if (driveMatch) {
+            link_video = `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+        }
+
         const payload = new FormData();
-        payload.append('link_video', formData.link_video);
+        payload.append('link_video', link_video);
         payload.append('judul', formData.judul);
         payload.append('deskripsi', formData.deskripsi);
         if (file) payload.append('file', file);
@@ -104,7 +111,14 @@ export default function DataPortfolio() {
     const handleEditClick = async (id: number) => {
         try {
             const response = await axios.get(`/api/porto/${id}`);
-            const { judul, deskripsi, link_video } = response.data;
+            let { judul, deskripsi, link_video } = response.data;
+
+            // Kalau link gdrive preview, kembalikan jadi view agar user bisa edit
+            const driveMatch = link_video.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+            if (driveMatch) {
+                link_video = `https://drive.google.com/file/d/${driveMatch[1]}/view?usp=sharing`;
+            }
+
             setFormData({ judul, deskripsi, link_video });
             setIsEditMode(true);
             setEditingId(id);
