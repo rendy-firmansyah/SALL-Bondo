@@ -5,6 +5,8 @@ import { Head } from '@inertiajs/react';
 import axios from 'axios';
 import { Info, PencilIcon, Trash } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Data Portfolio Student', href: '/data-portfolio-student' }];
 
@@ -31,6 +33,7 @@ export default function DataPortfolio() {
         deskripsi: '',
     });
     const [file, setFile] = useState<File | null>(null);
+    const [existingFileName, setExistingFileName] = useState<string | null>(null);
 
     useEffect(() => {
         fetchPortfolios();
@@ -42,6 +45,7 @@ export default function DataPortfolio() {
             setPortfolios(response.data);
         } catch (error) {
             console.error('Gagal ambil data:', error);
+            toast.error('Failed to load portfolio data');
         }
     };
 
@@ -53,9 +57,13 @@ export default function DataPortfolio() {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const uploaded = e.target.files?.[0];
         if (uploaded && isValidFile(uploaded)) {
+            if (uploaded.size > 5 * 1024 * 1024) {
+                toast.warning('The maximum file size is 5MB.');
+                return;
+            }
             setFile(uploaded);
         } else {
-            alert('Hanya file .png, .jpg, .jpeg, atau .pdf yang diperbolehkan.');
+            toast.error('Only .png, .jpg, .jpeg, or .pdf files are allowed.');
         }
     };
 
@@ -63,9 +71,13 @@ export default function DataPortfolio() {
         e.preventDefault();
         const uploaded = e.dataTransfer.files[0];
         if (uploaded && isValidFile(uploaded)) {
+            if (uploaded.size > 5 * 1024 * 1024) {
+                toast.warning('The maximum file size is 5MB.');
+                return;
+            }
             setFile(uploaded);
         } else {
-            alert('Hanya file .png, .jpg, .jpeg, atau .pdf yang diperbolehkan.');
+            toast.error('Only .png, .jpg, .jpeg, or .pdf files are allowed.');
         }
     };
 
@@ -75,6 +87,16 @@ export default function DataPortfolio() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!formData.judul.trim() || !formData.deskripsi.trim()) {
+            toast.warning('Title and description must be filled in');
+            return;
+        }
+
+        if (!formData.link_video.trim() && !file) {
+            toast.warning('Either link video or file must be provided');
+            return;
+        }
 
         // Normalisasi link video jika Google Drive
         let link_video = formData.link_video.trim();
@@ -96,8 +118,10 @@ export default function DataPortfolio() {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
+                toast.success('Portfolio has been successfully updated');
             } else {
                 await axios.post('/api/porto', payload);
+                toast.success('Portfolio has been successfully added');
             }
 
             resetForm();
@@ -105,32 +129,44 @@ export default function DataPortfolio() {
             fetchPortfolios();
         } catch (error) {
             console.error('Gagal kirim data:', error);
+            toast.error('Failed to save portfolio');
         }
     };
 
     const handleEditClick = async (id: number) => {
         try {
             const response = await axios.get(`/api/porto/${id}`);
-            let { judul, deskripsi, link_video } = response.data;
 
-            // Kalau link gdrive preview, kembalikan jadi view agar user bisa edit
-            const driveMatch = link_video.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
-            if (driveMatch) {
-                link_video = `https://drive.google.com/file/d/${driveMatch[1]}/view?usp=sharing`;
+            // Pastikan ambil objek sesuai struktur API
+            const portfolio = response.data.data ?? response.data;
+
+            const { judul, deskripsi, original_name } = portfolio;
+            let { link_video } = portfolio;
+
+            // Kalau link gdrive preview, ubah jadi view agar bisa diedit
+            if (link_video) {
+                const driveMatch = link_video.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+                if (driveMatch) {
+                    link_video = `https://drive.google.com/file/d/${driveMatch[1]}/view?usp=sharing`;
+                }
             }
 
-            setFormData({ judul, deskripsi, link_video });
+            setFormData({ judul, deskripsi, link_video: link_video ?? '' });
             setIsEditMode(true);
             setEditingId(id);
+            setExistingFileName(original_name ?? null); // simpan nama file lama
+            setFile(null);
             setShowModal(true);
         } catch (error) {
             console.error('Gagal fetch detail:', error);
+            toast.error('Failed to retrieve portfolio details');
         }
     };
 
     const resetForm = () => {
         setFormData({ link_video: '', judul: '', deskripsi: '' });
         setFile(null);
+        setExistingFileName(null);
         setShowModal(false);
         setIsEditMode(false);
         setEditingId(null);
@@ -148,8 +184,10 @@ export default function DataPortfolio() {
             await axios.delete(`/api/porto/${deleteId}`);
             setShowDeleteModal(false);
             fetchPortfolios();
+            toast.success('The portfolio has been successfully deleted.');
         } catch (error) {
             console.error('Gagal hapus data:', error);
+            toast.error('Failed to delete portfolio');
         }
     };
 
@@ -275,7 +313,11 @@ export default function DataPortfolio() {
                                         <Info size={14} /> Maksimal file hanya 5MB
                                     </p>
                                 </div>
-                                {file && <p className="mt-2 text-sm text-gray-600">File terpilih: {file.name}</p>}
+                                {file ? (
+                                    <p className="mt-2 text-sm text-gray-600">File terpilih: {file.name}</p>
+                                ) : existingFileName ? (
+                                    <p className="mt-2 text-sm text-gray-600">File sebelumnya: {existingFileName}</p>
+                                ) : null}
                             </div>
 
                             <div>

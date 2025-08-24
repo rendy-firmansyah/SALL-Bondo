@@ -112,6 +112,21 @@ export default function Portofolio() {
         // Jika bukan YouTube/Drive, pakai langsung
         return url;
     };
+    // Tambah state untuk paginate
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 8;
+
+    // Hitung data paginasi
+    const totalPages = Math.ceil(portoGambar.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const currentItems = portoGambar.slice(startIndex, startIndex + itemsPerPage);
+
+    // Fungsi pindah halaman
+    const goToPage = (page: number) => {
+        if (page >= 1 && page <= totalPages) {
+            setCurrentPage(page);
+        }
+    };
 
     return (
         <div className="bg-white">
@@ -138,7 +153,7 @@ export default function Portofolio() {
                     </div>
                     <div className="mt-12 mb-8 h-[3px] w-auto bg-gray-300"></div>
                     <div className="mb-20">
-                        {portofolio.length === 0 ? (
+                        {portoGambar.length === 0 ? (
                             <div className="text-center">
                                 <h1 className="text-2xl font-semibold text-[#b6b6b6]">Oops! No portfolio found just yet.</h1>
                                 <div className="flex justify-center">
@@ -151,56 +166,94 @@ export default function Portofolio() {
                                 </div>
                             </div>
                         ) : (
-                            <div className="grid grid-cols-1 justify-items-center gap-6 md:grid-cols-4">
-                                {portoGambar.map((item) => (
-                                    <div key={item.id} className="rounded-xl border-2 border-gray-300 bg-white p-8 shadow-xl">
-                                        {/* Gambar */}
-                                        {item.file_path && (
-                                            <div className="mb-5 flex justify-center">
-                                                {isImage(item.mime_type) ? (
-                                                    <img
-                                                        src={`/storage/${item.file_path}`}
-                                                        alt={`Gambar ${item.judul}`}
-                                                        className="h-36 w-44 object-contain"
-                                                    />
-                                                ) : isPdf(item.mime_type) ? (
-                                                    <img src={LogoModul} alt="PDF File" className="h-36 w-44 object-contain" />
-                                                ) : null}
-                                            </div>
-                                        )}
-
-                                        {/* Judul */}
-                                        <h3 className="text-xl font-semibold">{item.judul}</h3>
-
-                                        {/* Deskripsi */}
-                                        <p className="mt-2 text-[16px] text-gray-500">
-                                            {item.deskripsi.split(' ').length > 20
-                                                ? item.deskripsi.split(' ').slice(0, 20).join(' ') + '...'
-                                                : 'Deskripsi terlalu singkat'}
-                                        </p>
-                                        <div className="text-end">
-                                            {isPdf(item.mime_type) ? (
-                                                // Jika PDF, buka file langsung
-                                                <a
-                                                    href={`/storage/${item.file_path}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="text-sm font-semibold text-[#34699A]"
-                                                >
-                                                    Lihat PDF
-                                                </a>
-                                            ) : (
-                                                // Jika gambar, buka halaman detail
-                                                <a href={route('detailPortofolio', { id: item.id })} className="text-sm font-semibold text-[#34699A]">
-                                                    Selengkapnya
-                                                </a>
+                            <>
+                                <div className="grid grid-cols-1 justify-items-center gap-6 md:grid-cols-4">
+                                    {currentItems.map((item) => (
+                                        <div
+                                            key={item.id}
+                                            className="mx-auto w-full max-w-sm rounded-xl border-2 border-gray-300 bg-white p-8 shadow-xl"
+                                        >
+                                            {/* Gambar */}
+                                            {item.file_path && (
+                                                <div className="mb-5 flex justify-center">
+                                                    {isImage(item.mime_type) ? (
+                                                        <img
+                                                            src={`/storage/${item.file_path}`}
+                                                            alt={`Gambar ${item.judul}`}
+                                                            className="h-36 w-44 object-contain"
+                                                        />
+                                                    ) : isPdf(item.mime_type) ? (
+                                                        <img src={LogoModul} alt="PDF File" className="h-36 w-44 object-contain" />
+                                                    ) : null}
+                                                </div>
                                             )}
+
+                                            {/* Judul */}
+                                            <h3 className="text-center text-xl font-semibold">{item.judul}</h3>
+
+                                            {/* Deskripsi */}
+                                            <p className="mt-2 text-center text-[16px] text-gray-500">
+                                                {item.deskripsi.split(' ').length > 20
+                                                    ? item.deskripsi.split(' ').slice(0, 20).join(' ') + '...'
+                                                    : 'Deskripsi terlalu singkat'}
+                                            </p>
+                                            <div className="mt-2 text-center">
+                                                {isPdf(item.mime_type) ? (
+                                                    <a
+                                                        href={`/storage/${item.file_path}`}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-sm font-semibold text-[#34699A]"
+                                                    >
+                                                        Lihat PDF
+                                                    </a>
+                                                ) : (
+                                                    <a
+                                                        href={route('detailPortofolio', { id: item.id })}
+                                                        className="text-sm font-semibold text-[#34699A]"
+                                                    >
+                                                        Selengkapnya
+                                                    </a>
+                                                )}
+                                            </div>
                                         </div>
+                                    ))}
+                                </div>
+
+                                {/* Pagination Control */}
+                                {totalPages > 1 && (
+                                    <div className="mt-6 flex items-center justify-center gap-2">
+                                        <button
+                                            onClick={() => goToPage(currentPage - 1)}
+                                            disabled={currentPage === 1}
+                                            className="rounded-md border border-gray-300 bg-white px-3 py-1 text-sm font-medium text-gray-600 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                                        >
+                                            Prev
+                                        </button>
+                                        {[...Array(totalPages)].map((_, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => goToPage(idx + 1)}
+                                                className={`rounded-md px-3 py-1 text-sm font-medium ${
+                                                    currentPage === idx + 1 ? 'bg-[#34699A] text-white' : 'bg-gray-200 text-gray-700'
+                                                }`}
+                                            >
+                                                {idx + 1}
+                                            </button>
+                                        ))}
+                                        <button
+                                            onClick={() => goToPage(currentPage + 1)}
+                                            disabled={currentPage === totalPages}
+                                            className="rounded-md border border-gray-300 bg-white px-3 py-1 text-sm font-medium text-gray-600 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+                                        >
+                                            Next
+                                        </button>
                                     </div>
-                                ))}
-                            </div>
+                                )}
+                            </>
                         )}
                     </div>
+
                     <div className="">
                         <div className="flex justify-center">
                             <div>
