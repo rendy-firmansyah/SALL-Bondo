@@ -56,29 +56,37 @@ export default function DataPortfolio() {
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const uploaded = e.target.files?.[0];
-        if (uploaded && isValidFile(uploaded)) {
-            if (uploaded.size > 5 * 1024 * 1024) {
-                toast.warning('The maximum file size is 5MB.');
-                return;
-            }
-            setFile(uploaded);
-        } else {
-            toast.error('Only .png, .jpg, .jpeg, or .pdf files are allowed.');
+        if (!uploaded) return;
+
+        if (uploaded.size > 5 * 1024 * 1024) {
+            toast.warning('The maximum file size is 5MB.');
+            return;
         }
+
+        if (!isValidFile(uploaded)) {
+            toast.error('Only .png, .jpg, .jpeg, or .pdf files are allowed.');
+            return;
+        }
+
+        setFile(uploaded);
     };
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         const uploaded = e.dataTransfer.files[0];
-        if (uploaded && isValidFile(uploaded)) {
-            if (uploaded.size > 5 * 1024 * 1024) {
-                toast.warning('The maximum file size is 5MB.');
-                return;
-            }
-            setFile(uploaded);
-        } else {
-            toast.error('Only .png, .jpg, .jpeg, or .pdf files are allowed.');
+        if (!uploaded) return;
+
+        if (uploaded.size > 5 * 1024 * 1024) {
+            toast.warning('The maximum file size is 5MB.');
+            return;
         }
+
+        if (!isValidFile(uploaded)) {
+            toast.error('Only .png, .jpg, .jpeg, or .pdf files are allowed.');
+            return;
+        }
+
+        setFile(uploaded);
     };
 
     const isValidFile = (file: File) => {
@@ -93,7 +101,8 @@ export default function DataPortfolio() {
             return;
         }
 
-        if (!formData.link_video.trim() && !file) {
+        // Validasi hanya jika mode tambah
+        if (!isEditMode && !formData.link_video.trim() && !file) {
             toast.warning('Either link video or file must be provided');
             return;
         }
@@ -106,10 +115,18 @@ export default function DataPortfolio() {
         }
 
         const payload = new FormData();
-        payload.append('link_video', link_video);
         payload.append('judul', formData.judul);
         payload.append('deskripsi', formData.deskripsi);
-        if (file) payload.append('file', file);
+
+        // Tambahkan link hanya jika ada perubahan atau saat tambah baru
+        if (link_video) {
+            payload.append('link_video', link_video);
+        }
+
+        // Tambahkan file hanya jika user upload baru
+        if (file) {
+            payload.append('file', file);
+        }
 
         try {
             if (isEditMode && editingId !== null) {
